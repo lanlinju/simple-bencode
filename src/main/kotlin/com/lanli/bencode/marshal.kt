@@ -1,26 +1,5 @@
 package com.lanli.bencode
 
-import java.io.BufferedWriter
-import java.io.OutputStream
-
-/**
- * 将给定对象 [any] 序列化并写入到指定的输出流 [outputStream] 中。
- * 返回写入的字节数。
- */
-fun marshal(outputStream: OutputStream, any: Any): Int {
-    val bObject = marshal(any)
-    return outputStream.bufferedWriter().use { bencode(it, bObject) }
-}
-
-/**
- * 将给定对象 [any] 序列化并写入到指定的缓冲写入器 [writer] 中。
- * 返回写入的字节数。
- */
-fun marshal(writer: BufferedWriter, any: Any): Int {
-    val bObject = marshal(any)
-    return bencode(writer, bObject)
-}
-
 /**
  * 将给定对象 [any] 转换为对应的 BObject。
  */

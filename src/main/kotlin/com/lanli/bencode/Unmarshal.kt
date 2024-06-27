@@ -1,28 +1,6 @@
 package com.lanli.bencode
 
-import java.io.BufferedReader
-import java.io.InputStream
 import java.lang.reflect.Field
-
-/**
- * 从输入流中反序列化为指定类型 [T]。
- */
-inline fun <reified T : Any> unmarshal(inputStream: InputStream): T {
-    return inputStream.bufferedReader().use { unmarshal<T>(it) }
-}
-
-inline fun <reified T : Any> unmarshal(reader: BufferedReader): T {
-    return unmarshal(T::class.java, reader) as T
-}
-
-/**
- * 根据给定的 [Class] 和 [BufferedReader] 执行反序列化操作。
- * 返回反序列化后的对象。
- */
-fun unmarshal(clazz: Class<*>, reader: BufferedReader): Any {
-    val bObject = parse(reader)
-    return unmarshal(clazz, bObject)
-}
 
 /**
  * 根据 BObject 类型 [bObject] 执行反序列化操作。

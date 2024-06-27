@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
-internal class UtilTest {
+class UtilTest {
 
     data class TestClass(val value: String = "test")
 
@@ -45,10 +45,12 @@ internal class UtilTest {
         assertEquals(List::class.java, hierarchy[1])
         assertEquals(String::class.java, hierarchy[2])
     }
+
+    // Helper class to create TypeReference for generic types
+    abstract class TypeReference<T> {
+        val type: Type
+            get() = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0]
+    }
 }
 
-// Helper class to create TypeReference for generic types
-abstract class TypeReference<T> {
-    val type: Type
-        get() = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0]
-}
+
