@@ -1,8 +1,8 @@
 package bencode
 
-import com.lanli.com.lanli.bencode.BObject
-import com.lanli.com.lanli.bencode.parse
-import com.lanli.com.lanli.bencode.readNChars
+import com.lanli.bencode.BObject
+import com.lanli.bencode.parse
+import com.lanli.bencode.readNChars
 import kotlin.test.Test
 import java.io.BufferedReader
 import java.io.StringReader

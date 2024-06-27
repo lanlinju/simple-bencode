@@ -1,4 +1,4 @@
-package com.lanli.com.lanli.bencode
+package com.lanli.bencode
 
 import java.io.BufferedReader
 
