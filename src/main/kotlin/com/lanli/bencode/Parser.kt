@@ -22,7 +22,9 @@ internal sealed class BObject {
 }
 
 /**
- *根据第一个字符判断数据类型并调用相应的解码函数
+ * 从给定的[reader]中读取字节流转化成[BObject]
+ *
+ * 根据第一个字符判断数据类型并调用相应的解码函数
  */
 internal fun parse(reader: BufferedReader): BObject {
     val peek = reader.peek()

@@ -4,11 +4,10 @@ import com.lanli.bencode.createInstance
 import com.lanli.bencode.extractNestedType
 import com.lanli.bencode.isListType
 import com.lanli.bencode.parseTypeHierarchy
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
-import java.lang.reflect.Type
+import org.junit.jupiter.api.Test
 import java.lang.reflect.ParameterizedType
-import java.lang.reflect.WildcardType
+import java.lang.reflect.Type
 
 internal class UtilTest {
 

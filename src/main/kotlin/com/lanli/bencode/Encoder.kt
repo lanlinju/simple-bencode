@@ -3,7 +3,7 @@ package com.lanli.bencode
 import java.io.BufferedWriter
 
 /**
- * 将 BObject 编码为 Bencode 格式并写入指定的 BufferedWriter 中。
+ * 将 [BObject] 编码为 Bencode 格式并写入指定的 [BufferedWriter] 中。
  * 返回写入的总字节长度。
  */
 internal fun bencode(writer: BufferedWriter, bObject: BObject): Int {
