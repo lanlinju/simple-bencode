@@ -112,6 +112,5 @@ class ParserTest {
 
         val actual = reader.readNChars(input.length)
         assertEquals(input, actual)
-
     }
 }
