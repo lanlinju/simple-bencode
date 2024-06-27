@@ -1,8 +1,10 @@
 package com.lanli.com.lanli.bencode
 
 import java.io.BufferedReader
-import java.io.InputStream
 
+/**
+ * 用于表示Bencode编码的不同类型的类
+ */
 internal sealed class BObject {
     data class BStr(val value: String) : BObject()
     data class BInt(val value: Int) : BObject()
@@ -19,6 +21,9 @@ internal sealed class BObject {
     }
 }
 
+/**
+ *根据第一个字符判断数据类型并调用相应的解码函数
+ */
 internal fun parse(reader: BufferedReader): BObject {
     val peek = reader.peek()
     return when {
@@ -38,7 +43,7 @@ internal fun BufferedReader.peek(): Char {
 }
 
 /**
- * 4:spam
+ * 解码字符串：格式为length:value，例如4:spam
  */
 internal fun decodeString(reader: BufferedReader): String {
     val length = buildString {
@@ -52,7 +57,7 @@ internal fun decodeString(reader: BufferedReader): String {
 }
 
 /**
- * i32e
+ * 解码整数：格式为i<integer>e，例如i32e
  */
 internal fun decodeInt(reader: BufferedReader): Int {
     reader.read() // consume 'i'
@@ -66,6 +71,9 @@ internal fun decodeInt(reader: BufferedReader): Int {
     return number
 }
 
+/**
+ * 解码列表：格式为l<item1><item2>...e，例如l4:spam4:eggse
+ */
 internal fun decodeList(reader: BufferedReader): BObject.BList {
     reader.read() // consume 'l'
     val list = mutableListOf<BObject>()
@@ -75,13 +83,14 @@ internal fun decodeList(reader: BufferedReader): BObject.BList {
             reader.read() // consume 'e'
             break
         }
-        list.add(parse(reader)!!)
+        // 递归解析列表中的每一项
+        list.add(parse(reader))
     }
     return BObject.BList(list)
 }
 
 /**
- *  d3:cow3:moo4:spam4:eggse
+ * 解码字典：格式为d<key><value>...e，例如d3:cow3:moo4:spam4:eggse
  */
 internal fun decodeDict(reader: BufferedReader): BObject.BDict {
     reader.read() // consume 'd'
@@ -93,12 +102,15 @@ internal fun decodeDict(reader: BufferedReader): BObject.BDict {
             break
         }
         val key = decodeString(reader)
-        val value = parse(reader)!!
+        val value = parse(reader)
         dict[key] = value
     }
     return BObject.BDict(dict)
 }
 
+/**
+ * 读取指定长度的字符
+ */
 internal fun BufferedReader.readNChars(n: Int): String {
     val charArray = CharArray(n)
     read(charArray, 0, n)
