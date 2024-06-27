@@ -3,9 +3,9 @@ package bencode
 import com.lanli.bencode.BObject
 import com.lanli.bencode.parse
 import com.lanli.bencode.readNChars
-import kotlin.test.Test
 import java.io.BufferedReader
 import java.io.StringReader
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
@@ -109,7 +109,6 @@ class ParserTest {
     fun testReadNChars() {
         val input = "Hello, World!"
         val reader = BufferedReader(StringReader(input))
-
         val actual = reader.readNChars(input.length)
         assertEquals(input, actual)
     }

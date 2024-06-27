@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6b12048-ccaf-4443-b7eb-dd467fcd5d53" name="Changes" comment="实现Bencode的解析器Parser的功能&#10;&#10;将String解析成BObject" />
+    <list default="true" id="a6b12048-ccaf-4443-b7eb-dd467fcd5d53" name="Changes" comment="添加Kotlin的反射依赖库" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,14 +15,57 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="simple-bencode" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="simple-bencode" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="simple-bencode" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="simple-bencode" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build setup" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin File" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feat-new-object" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
@@ -38,7 +81,50 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.BecodeTest.executor": "Run",
+    "Gradle.BencodeTest.executor": "Run",
+    "Gradle.BencodeTest.testDecode.executor": "Run",
+    "Gradle.BencodeTest.testDecodeInt.executor": "Run",
+    "Gradle.BencodeTest.testDecodePerson.executor": "Run",
+    "Gradle.BencodeTest.testDecodeString.executor": "Run",
+    "Gradle.BencodeTest.testEncodeAddress.executor": "Run",
+    "Gradle.BencodeTest.testEncodePerson.executor": "Run",
+    "Gradle.BencodeTest.testEncodeWithInputStream.executor": "Run",
+    "Gradle.BufferedReaderExtensionsTest.executor": "Run",
+    "Gradle.BufferedReaderExtensionsTest.testReadNCharsChinese.executor": "Run",
     "Gradle.Build simple-bencode.executor": "Run",
+    "Gradle.EncoderTest.executor": "Run",
+    "Gradle.EncoderTest.testBencodeEmptyBList.executor": "Run",
+    "Gradle.EncoderTest.testBencodeInvalidObject.executor": "Run",
+    "Gradle.EncoderTest.testEncodeDictNested.executor": "Run",
+    "Gradle.EncoderTest.testEncodeIntWithMinus.executor": "Run",
+    "Gradle.MarshalTest.executor": "Run",
+    "Gradle.MarshalTest.testMarshalToBufferedWriter.executor": "Run",
+    "Gradle.MarshalTest.testMarshalToOutputStream.executor": "Run",
+    "Gradle.ParserTest.executor": "Run",
+    "Gradle.ParserTest.testDecodeEmptyDict.executor": "Run",
+    "Gradle.ParserTest.testDecodeEmptyList.executor": "Run",
+    "Gradle.ParserTest.testDecodeEmptyString.executor": "Run",
+    "Gradle.ParserTest.testDecodeEmptyStringAndInt.executor": "Run",
+    "Gradle.ParserTest.testReadNChars.executor": "Run",
+    "Gradle.ParserTest.testReadNCharsWithShorterLength.executor": "Run",
+    "Gradle.UnmarshalTest.executor": "Run",
+    "Gradle.UnmarshalTest.testUnmarshal.executor": "Run",
+    "Gradle.UnmarshalTest.testUnmarshalDict.executor": "Run",
+    "Gradle.UnmarshalTest.testUnmarshalInt.executor": "Run",
+    "Gradle.UnmarshalTest.testUnmarshalList.executor": "Run",
+    "Gradle.UnmarshalTest.testUnmarshalNestedAddress.executor": "Run",
+    "Gradle.UnmarshalTest.testUnmarshalNestedListIncludedAddrWitchList.executor": "Run",
+    "Gradle.UnmarshalTest.testUnmarshalNestedListInnerList.executor": "Run",
+    "Gradle.UnmarshalTest.testUnmarshalNestedListWithAddrInList.executor": "Run",
+    "Gradle.UnmarshalTest.testUnmarshalString.executor": "Run",
+    "Gradle.UnmarshalTest.testUnmarshalWithList.executor": "Run",
+    "Gradle.UtilTest.executor": "Run",
+    "Gradle.UtilTest.testCreateInstance.executor": "Run",
+    "Gradle.UtilTest.testExtractNestedType.executor": "Debug",
+    "Gradle.UtilTest.testExtractNestedTypeWithWildcard.executor": "Debug",
+    "Gradle.UtilTest.testParseTypeHierarchy.executor": "Debug",
+    "Gradle.UtilTest.testParseTypeHierarchyWithWildcard.executor": "Debug",
     "Kotlin.MainKt.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
@@ -49,6 +135,9 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -57,17 +146,134 @@
     ]
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.lanli.MainKt" />
-      <module name="simple-bencode.main" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+  <component name="RunManager" selected="Gradle.BencodeTest">
+    <configuration name="BencodeTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;bencode.BencodeTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="BencodeTest.testDecode" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;bencode.BencodeTest.testDecode&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="BencodeTest.testDecodePerson" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;bencode.BencodeTest.testDecodePerson&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="BencodeTest.testEncodeAddress" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;bencode.BencodeTest.testEncodeAddress&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="BencodeTest.testEncodeWithInputStream" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;bencode.BencodeTest.testEncodeWithInputStream&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Kotlin.MainKt" />
+        <item itemvalue="Gradle.BencodeTest" />
+        <item itemvalue="Gradle.BencodeTest.testEncodeWithInputStream" />
+        <item itemvalue="Gradle.BencodeTest.testEncodeAddress" />
+        <item itemvalue="Gradle.BencodeTest.testDecodePerson" />
+        <item itemvalue="Gradle.BencodeTest.testDecode" />
       </list>
     </recent_temporary>
   </component>
@@ -88,6 +294,7 @@
       <option name="presentableId" value="Default" />
       <updated>1719409808701</updated>
       <workItem from="1719409809789" duration="3739000" />
+      <workItem from="1719485532114" duration="24607000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <option name="closed" value="true" />
@@ -105,7 +312,119 @@
       <option name="project" value="LOCAL" />
       <updated>1719414870714</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="增加Paser的测试用例">
+      <option name="closed" value="true" />
+      <created>1719488571202</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1719488571202</updated>
+    </task>
+    <task id="LOCAL-00004" summary="增加Paser的测试用例">
+      <option name="closed" value="true" />
+      <created>1719488835873</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1719488835873</updated>
+    </task>
+    <task id="LOCAL-00005" summary="增加Paser的测试用例">
+      <option name="closed" value="true" />
+      <created>1719488889229</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1719488889229</updated>
+    </task>
+    <task id="LOCAL-00006" summary="为Parser解析器增加注释信息">
+      <option name="closed" value="true" />
+      <created>1719489056877</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1719489056877</updated>
+    </task>
+    <task id="LOCAL-00007" summary="实现Encoder编码器功能&#10;&#10;将BOject对象编码成字符串，写入BufferedWriter">
+      <option name="closed" value="true" />
+      <created>1719491731420</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1719491731420</updated>
+    </task>
+    <task id="LOCAL-00008" summary="增加Encoder编码器的测试用例">
+      <option name="closed" value="true" />
+      <created>1719492472108</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1719492472108</updated>
+    </task>
+    <task id="LOCAL-00009" summary="实现Unmarshal的功能">
+      <option name="closed" value="true" />
+      <created>1719499028633</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1719499028633</updated>
+    </task>
+    <task id="LOCAL-00010" summary="增加Unmarshal的单元测试">
+      <option name="closed" value="true" />
+      <created>1719501480140</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1719501480140</updated>
+    </task>
+    <task id="LOCAL-00011" summary="增加Util的单元测试">
+      <option name="closed" value="true" />
+      <created>1719502054447</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1719502054447</updated>
+    </task>
+    <task id="LOCAL-00012" summary="实现marshal的功能&#10;&#10;将一个对象转化成BOject">
+      <option name="closed" value="true" />
+      <created>1719503912836</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1719503912836</updated>
+    </task>
+    <task id="LOCAL-00013" summary="增加marshal的单元测试">
+      <option name="closed" value="true" />
+      <created>1719507736069</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1719507736069</updated>
+    </task>
+    <task id="LOCAL-00014" summary="实现Bencode的功能">
+      <option name="closed" value="true" />
+      <created>1719509289079</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1719509289079</updated>
+    </task>
+    <task id="LOCAL-00015" summary="增加Bencode的单元测试">
+      <option name="closed" value="true" />
+      <created>1719511502036</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1719511502036</updated>
+    </task>
+    <task id="LOCAL-00016" summary="添加Kotlin的反射依赖库">
+      <option name="closed" value="true" />
+      <created>1719511664603</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1719511664603</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,7 +435,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -125,6 +456,20 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Init" />
     <MESSAGE value="实现Bencode的解析器Parser的功能&#10;&#10;将String解析成BObject" />
-    <option name="LAST_COMMIT_MESSAGE" value="实现Bencode的解析器Parser的功能&#10;&#10;将String解析成BObject" />
+    <MESSAGE value="为Paser增加注释信息" />
+    <MESSAGE value="增加Paser的测试用例" />
+    <MESSAGE value="为Parser解析器增加注释信息" />
+    <MESSAGE value="实现Encoder编码器功能&#10;&#10;将BOject对象编码成字符串，写入BufferedWriter" />
+    <MESSAGE value="增加Encoder编码器的测试用例" />
+    <MESSAGE value="实现Unmarshal的功能" />
+    <MESSAGE value="增加Unmarshal的单元测试" />
+    <MESSAGE value="增加Util的单元测试" />
+    <MESSAGE value="实现marshal的功能&#10;&#10;将一个对象转化成BOject" />
+    <MESSAGE value="增加marshal的单元测试" />
+    <MESSAGE value="实现Bencode的功能" />
+    <MESSAGE value="增加Bencode的单元测试" />
+    <MESSAGE value="添加Kotlin的反射依赖库" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加Kotlin的反射依赖库" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
