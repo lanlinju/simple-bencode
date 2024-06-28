@@ -101,4 +101,14 @@ class BencodeTest {
         val actual = Bencode.decode<Address>(reader)
         assertEquals(expected, actual)
     }
+
+    data class Person2(val name: String = "", val age: Int = 0)
+    @Test
+    fun testDecodeAndEncode() {
+        val person = Bencode.decode<Person2>("d4:name4:John3:agei30ee")
+        println(person)
+
+        val result = Bencode.encode(Person2(name="John", age=30))
+        println(result)
+    }
 }
