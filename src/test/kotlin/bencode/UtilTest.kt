@@ -31,7 +31,7 @@ class UtilTest {
     // 测试 isListType 函数
     @Test
     fun testIsListType() {
-        assertTrue(isListType(List::class.java))
+        assertTrue(isListType(MutableList::class.java))
         assertFalse(isListType(String::class.java))
     }
 

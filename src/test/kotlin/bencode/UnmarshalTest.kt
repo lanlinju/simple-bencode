@@ -19,10 +19,14 @@ class UnmarshalTest {
 
     @Test
     fun testUnmarshalInt() {
-        val input = BObject.BInt(42)
-        val expected = 42
-        val actual = unmarshal(Int::class.java, input) as Int
+        val input = BObject.BInt(42L)
+        val input2 = BObject.BInt(32L)
+        val expected = 42L
+        val expected2 = 32
+        val actual = unmarshal(Long::class.java, input) as Long
+        val actual2 = unmarshal(Int::class.java, input2) as Int
         assertEquals(expected, actual)
+        assertEquals(expected2, actual2)
     }
 
     @Test
@@ -69,7 +73,7 @@ class UnmarshalTest {
     internal data class Address(val code: Int = 0, val area: String = "", val list: List<String> = emptyList()) {
         fun toMap(): Map<String, BObject> {
             return mapOf(
-                "code" to BObject.BInt(code),
+                "code" to BObject.BInt(code.toLong()),
                 "area" to BObject.BStr(area),
                 "list" to BObject.BList(list.map { BObject.BStr(it) })
             )

@@ -61,7 +61,7 @@ class BencodeTest {
         val person = Person(name = "John", age = 30, address = Address(code = 12345, area = "Main Street"))
         val expected = "d4:name4:John3:agei30e7:addressd4:codei12345e4:area11:Main Streetee"
         val writer = StringWriter()
-         writer.buffered().use { Bencode.encode(it,person) }
+        writer.buffered().use { Bencode.encode(it, person) }
         val actual = writer.toString()
         assertEquals(expected, actual)
     }
@@ -103,12 +103,32 @@ class BencodeTest {
     }
 
     data class Person2(val name: String = "", val age: Int = 0)
+
     @Test
     fun testDecodeAndEncode() {
         val person = Bencode.decode<Person2>("d4:name4:John3:agei30ee")
         println(person)
 
-        val result = Bencode.encode(Person2(name="John", age=30))
+        val result = Bencode.encode(Person2(name = "John", age = 30))
         println(result)
+    }
+
+    data class Person3(val name: String = "", val age: Long = 0)
+
+    @Test
+    fun testDecodePersonWithLong() {
+        val input = "d4:name4:John3:agei30ee"
+        val expected = Person3(name = "John", age = 30L)
+        val actual = Bencode.decode<Person3>(input)
+        assertEquals(expected, actual)
+        println(expected)
+    }
+
+    @Test
+    fun testEncodePersonWithLong() {
+        val expected = "d4:name4:John3:agei30ee"
+        val actual = Bencode.encode(Person3(name = "John", age = 30L))
+        assertEquals(expected, actual)
+        println(expected)
     }
 }

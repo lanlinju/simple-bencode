@@ -1,12 +1,8 @@
 package bencode
 
 import com.lanli.bencode.*
-import com.lanli.bencode.BObject
-import com.lanli.bencode.encodeDict
-import com.lanli.bencode.encodeInt
-import com.lanli.bencode.encodeList
-import com.lanli.bencode.encodeString
-import java.io.*
+import java.io.BufferedWriter
+import java.io.StringWriter
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -37,7 +33,7 @@ class EncoderTest {
 
     @Test
     fun testEncodeIntWithMinus() {
-        val input = -32
+        val input = -32L
         val writer = StringWriter()
         val bWriter = BufferedWriter(writer)
         val expected = "i-32e"
@@ -151,4 +147,5 @@ class EncoderTest {
         val bObject = BObject.BList(emptyList())
         assertEquals(2, bencode(bWriter, bObject))// le
     }
+
 }

@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6b12048-ccaf-4443-b7eb-dd467fcd5d53" name="Changes" comment="添加Kotlin的反射依赖库" />
+    <list default="true" id="a6b12048-ccaf-4443-b7eb-dd467fcd5d53" name="Changes" comment="Add support for Long type" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,13 +37,7 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="simple-bencode" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="simple-bencode" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build setup" type="c8890929:TasksNode$1" />
+                <item name="verification" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -63,7 +57,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feat-new-object" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -84,12 +78,16 @@
     "Gradle.BecodeTest.executor": "Run",
     "Gradle.BencodeTest.executor": "Run",
     "Gradle.BencodeTest.testDecode.executor": "Run",
+    "Gradle.BencodeTest.testDecodeAddress.executor": "Run",
+    "Gradle.BencodeTest.testDecodeAndEncode.executor": "Run",
     "Gradle.BencodeTest.testDecodeInt.executor": "Run",
     "Gradle.BencodeTest.testDecodePerson.executor": "Run",
     "Gradle.BencodeTest.testDecodeString.executor": "Run",
+    "Gradle.BencodeTest.testEecodePersonWithLong.executor": "Run",
     "Gradle.BencodeTest.testEncodeAddress.executor": "Run",
     "Gradle.BencodeTest.testEncodePerson.executor": "Run",
     "Gradle.BencodeTest.testEncodeWithInputStream.executor": "Run",
+    "Gradle.BencodeTest.testPersonWithLong.executor": "Run",
     "Gradle.BufferedReaderExtensionsTest.executor": "Run",
     "Gradle.BufferedReaderExtensionsTest.testReadNCharsChinese.executor": "Run",
     "Gradle.Build simple-bencode.executor": "Run",
@@ -97,7 +95,9 @@
     "Gradle.EncoderTest.testBencodeEmptyBList.executor": "Run",
     "Gradle.EncoderTest.testBencodeInvalidObject.executor": "Run",
     "Gradle.EncoderTest.testEncodeDictNested.executor": "Run",
+    "Gradle.EncoderTest.testEncodeInt.executor": "Run",
     "Gradle.EncoderTest.testEncodeIntWithMinus.executor": "Run",
+    "Gradle.EncoderTest.testIntToLong.executor": "Run",
     "Gradle.MarshalTest.executor": "Run",
     "Gradle.MarshalTest.testMarshalToBufferedWriter.executor": "Run",
     "Gradle.MarshalTest.testMarshalToOutputStream.executor": "Run",
@@ -123,13 +123,16 @@
     "Gradle.UtilTest.testCreateInstance.executor": "Run",
     "Gradle.UtilTest.testExtractNestedType.executor": "Debug",
     "Gradle.UtilTest.testExtractNestedTypeWithWildcard.executor": "Debug",
+    "Gradle.UtilTest.testIsListType.executor": "Run",
     "Gradle.UtilTest.testParseTypeHierarchy.executor": "Debug",
     "Gradle.UtilTest.testParseTypeHierarchyWithWildcard.executor": "Debug",
+    "Gradle.simple-bencode [test].executor": "Run",
     "Kotlin.MainKt.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "feat-add-long",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Dev/Code/codecrafters-bittorrent-kotlin",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -146,8 +149,8 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="Gradle.BencodeTest">
-    <configuration name="BencodeTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.simple-bencode [test]">
+    <configuration name="BencodeTest.testDecodeAndEncode" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -160,7 +163,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;bencode.BencodeTest&quot;" />
+            <option value="&quot;bencode.BencodeTest.testDecodeAndEncode&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -171,7 +174,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="BencodeTest.testDecode" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="BencodeTest.testEecodePersonWithLong" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -184,7 +187,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;bencode.BencodeTest.testDecode&quot;" />
+            <option value="&quot;bencode.BencodeTest.testEecodePersonWithLong&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -195,7 +198,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="BencodeTest.testDecodePerson" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="UnmarshalTest.testUnmarshalInt" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -208,7 +211,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;bencode.BencodeTest.testDecodePerson&quot;" />
+            <option value="&quot;bencode.UnmarshalTest.testUnmarshalInt&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -219,7 +222,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="BencodeTest.testEncodeAddress" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="UtilTest.testIsListType" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -232,7 +235,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;bencode.BencodeTest.testEncodeAddress&quot;" />
+            <option value="&quot;bencode.UtilTest.testIsListType&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -243,37 +246,35 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="BencodeTest.testEncodeWithInputStream" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="simple-bencode [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;bencode.BencodeTest.testEncodeWithInputStream&quot;" />
+            <option value="test" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
+      <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.BencodeTest" />
-        <item itemvalue="Gradle.BencodeTest.testEncodeWithInputStream" />
-        <item itemvalue="Gradle.BencodeTest.testEncodeAddress" />
-        <item itemvalue="Gradle.BencodeTest.testDecodePerson" />
-        <item itemvalue="Gradle.BencodeTest.testDecode" />
+        <item itemvalue="Gradle.simple-bencode [test]" />
+        <item itemvalue="Gradle.UtilTest.testIsListType" />
+        <item itemvalue="Gradle.BencodeTest.testDecodeAndEncode" />
+        <item itemvalue="Gradle.BencodeTest.testEecodePersonWithLong" />
+        <item itemvalue="Gradle.UnmarshalTest.testUnmarshalInt" />
       </list>
     </recent_temporary>
   </component>
@@ -295,6 +296,8 @@
       <updated>1719409808701</updated>
       <workItem from="1719409809789" duration="3739000" />
       <workItem from="1719485532114" duration="24607000" />
+      <workItem from="1719578837658" duration="11486000" />
+      <workItem from="1719654950086" duration="3811000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <option name="closed" value="true" />
@@ -424,7 +427,47 @@
       <option name="project" value="LOCAL" />
       <updated>1719511664603</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="增加Bencode的单元测试">
+      <option name="closed" value="true" />
+      <created>1719579013663</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1719579013663</updated>
+    </task>
+    <task id="LOCAL-00018" summary="add maven publish">
+      <option name="closed" value="true" />
+      <created>1719589933421</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1719589933421</updated>
+    </task>
+    <task id="LOCAL-00019" summary="update version 1.0.1">
+      <option name="closed" value="true" />
+      <created>1719591175788</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1719591175788</updated>
+    </task>
+    <task id="LOCAL-00020" summary="update README.md">
+      <option name="closed" value="true" />
+      <created>1719592619474</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1719592619474</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Add support for Long type">
+      <option name="closed" value="true" />
+      <created>1719658640714</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1719658640714</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -467,9 +510,13 @@
     <MESSAGE value="实现marshal的功能&#10;&#10;将一个对象转化成BOject" />
     <MESSAGE value="增加marshal的单元测试" />
     <MESSAGE value="实现Bencode的功能" />
-    <MESSAGE value="增加Bencode的单元测试" />
     <MESSAGE value="添加Kotlin的反射依赖库" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加Kotlin的反射依赖库" />
+    <MESSAGE value="增加Bencode的单元测试" />
+    <MESSAGE value="add maven publish" />
+    <MESSAGE value="update version 1.0.1" />
+    <MESSAGE value="update README.md" />
+    <MESSAGE value="Add support for Long type" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add support for Long type" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>

@@ -17,9 +17,6 @@ internal fun unmarshal(clazz: Class<*>, bObject: BObject): Any {
     }
 }
 
-/**
- * 执行字符串类型的反序列化
- */
 internal fun unmarshalString(clazz: Class<*>, o: BObject.BStr): String {
     if (clazz == String::class.java || clazz == Nothing::class.java) {
         return o.value
@@ -29,12 +26,17 @@ internal fun unmarshalString(clazz: Class<*>, o: BObject.BStr): String {
 
 /**
  * 执行整数类型的反序列化
+ *
+ * 执行字符串类型的反序列化
+ * [Nothing]只是用于表明直接解析[Int] e.g. i32e
  */
-internal fun unmarshalInt(clazz: Class<*>, o: BObject.BInt): Int {
-    if (clazz == Int::class.java || clazz == Nothing::class.java) {
-        return o.value
+internal fun unmarshalInt(clazz: Class<*>, o: BObject.BInt): Number {
+    return when (clazz) {
+        Int::class.java -> o.value.toInt()
+        Long::class.java -> o.value
+        Nothing::class.java -> o.value
+        else -> throw IllegalArgumentException("Type mismatch: expected Int but got ${clazz.name}")
     }
-    throw IllegalArgumentException("Type mismatch: expected Int but got ${clazz.name}")
 }
 
 /**
@@ -90,19 +92,20 @@ private fun setFieldValue(any: Any, field: Field, value: BObject) {
 }
 
 private fun setStringField(any: Any, field: Field, value: BObject.BStr, fieldType: Class<*>) {
-    if (fieldType == String::class.java) {
-        field.set(any, value.value)
-        return
+    when (fieldType) {
+        String::class.java -> field.set(any, value.value)
+        else -> throw IllegalArgumentException("Type mismatch: expected String but got ${fieldType.name}")
     }
-    throw IllegalArgumentException("Type mismatch: expected String but got ${fieldType.name}")
 }
 
 private fun setIntField(any: Any, field: Field, value: BObject.BInt, fieldType: Class<*>) {
-    if (fieldType == Int::class.java) {
-        field.set(any, value.value)
-        return
+    when (fieldType) {
+        // If the field type is Int, convert the value to Int and set the field value.
+        Int::class.java -> field.set(any, value.value.toInt())
+        // If the field type is Long, set the field value.
+        Long::class.java -> field.set(any, value.value)
+        else -> throw IllegalArgumentException("Type mismatch: expected Int or Long but got ${fieldType.name}")
     }
-    throw IllegalArgumentException("Type mismatch: expected Int but got ${fieldType.name}")
 }
 
 private fun setListField(any: Any, field: Field, value: BObject.BList, fieldType: Class<*>) {

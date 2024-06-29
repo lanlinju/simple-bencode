@@ -7,7 +7,7 @@ import java.io.BufferedReader
  */
 internal sealed class BObject {
     data class BStr(val value: String) : BObject()
-    data class BInt(val value: Int) : BObject()
+    data class BInt(val value: Long) : BObject()
     data class BList(val value: List<BObject>) : BObject()
     data class BDict(val value: Map<String, BObject>) : BObject()
 
@@ -61,7 +61,7 @@ internal fun decodeString(reader: BufferedReader): String {
 /**
  * 解码整数：格式为i<integer>e，例如i32e
  */
-internal fun decodeInt(reader: BufferedReader): Int {
+internal fun decodeInt(reader: BufferedReader): Long {
     reader.read() // consume 'i'
     val number = buildString {
         while (true) {
@@ -69,7 +69,7 @@ internal fun decodeInt(reader: BufferedReader): Int {
             if (char == 'e') break
             append(char)
         }
-    }.toInt()
+    }.toLong()
     return number
 }
 

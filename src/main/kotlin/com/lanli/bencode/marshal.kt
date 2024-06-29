@@ -6,7 +6,7 @@ package com.lanli.bencode
 internal fun marshal(any: Any): BObject {
     return when (any) {
         is String -> marshalString(any)
-        is Int -> marshalInt(any)
+        is Number -> marshalInt(any.toLong())
         is List<*> -> marshalList(any)
         else -> marshalDict(any)
     }
@@ -22,7 +22,7 @@ internal fun marshalString(value: String): BObject.BStr {
 /**
  * 将整数 [value] 转换为 BObject.BInt。
  */
-internal fun marshalInt(value: Int): BObject.BInt {
+internal fun marshalInt(value: Long): BObject.BInt {
     return BObject.BInt(value)
 }
 

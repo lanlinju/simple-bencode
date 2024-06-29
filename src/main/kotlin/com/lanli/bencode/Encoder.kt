@@ -52,7 +52,7 @@ internal fun encodeString(writer: BufferedWriter, value: String): Int {
     return lenStr.length + 1 + byteLength
 }
 
-internal fun encodeInt(writer: BufferedWriter, value: Int): Int {
+internal fun encodeInt(writer: BufferedWriter, value: Long): Int {
     val intStr = "i${value}e"
     writer.write(intStr)
     return intStr.length
