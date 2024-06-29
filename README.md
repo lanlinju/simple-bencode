@@ -26,8 +26,9 @@ println(result) // output: d4:name6:Laurie3:agei20ee
 data class Person(val name: String = "", val age: Int = 0)
 ```
 
-> [!NOTE]  
-> The class constructor must have default values.
+> [!NOTE]
+> 1. The class constructor must have default values.
+> 2. The Int type can be replaced with the Long type to handle large file lengths.
 
 ## Add Dependencies
 
@@ -47,6 +48,6 @@ Step 2. Add the dependency
 
 ```kotlin
 dependencies {
-    implementation("com.github.lanlinju:simple-bencode:v1.0.1")
+    implementation("com.github.lanlinju:simple-bencode:1.0.2")
 }
 ```
