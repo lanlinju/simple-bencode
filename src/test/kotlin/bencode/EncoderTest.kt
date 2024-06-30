@@ -1,17 +1,16 @@
 package bencode
 
 import com.lanli.bencode.*
-import java.io.BufferedWriter
-import java.io.StringWriter
+import java.io.ByteArrayOutputStream
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class EncoderTest {
     @Test
     fun testEncodeString() {
-        val writer = StringWriter()
-        val bWriter = BufferedWriter(writer)
-        val bObject = BObject.BStr("spam")
+        val writer = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
+        val bWriter = writer.buffered()
+        val bObject = BObject.BStr("spam".toByteArray())
         val expected = "4:spam"
         val actualLength = encodeString(bWriter, bObject.value)
         bWriter.flush()
@@ -21,8 +20,8 @@ class EncoderTest {
 
     @Test
     fun testEncodeInt() {
-        val writer = StringWriter()
-        val bWriter = BufferedWriter(writer)
+         val writer = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
+        val bWriter = writer.buffered()
         val bObject = BObject.BInt(42)
         val expected = "i42e"
         val actualLength = encodeInt(bWriter, bObject.value)
@@ -34,8 +33,8 @@ class EncoderTest {
     @Test
     fun testEncodeIntWithMinus() {
         val input = -32L
-        val writer = StringWriter()
-        val bWriter = BufferedWriter(writer)
+         val writer = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
+        val bWriter = writer.buffered()
         val expected = "i-32e"
         val actual = encodeInt(bWriter, input)
         bWriter.flush()
@@ -46,9 +45,9 @@ class EncoderTest {
 
     @Test
     fun testEncodeList() {
-        val writer = StringWriter()
-        val bWriter = BufferedWriter(writer)
-        val bObject = BObject.BList(listOf(BObject.BStr("spam"), BObject.BInt(42)))
+         val writer = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
+        val bWriter = writer.buffered()
+        val bObject = BObject.BList(listOf(BObject.BStr("spam".toByteArray()), BObject.BInt(42)))
         val expected = "l4:spami42ee"
         val actualLength = encodeList(bWriter, bObject)
         bWriter.flush()
@@ -58,9 +57,9 @@ class EncoderTest {
 
     @Test
     fun testEncodeDict() {
-        val writer = StringWriter()
-        val bWriter = BufferedWriter(writer)
-        val bObject = BObject.BDict(mapOf("cow" to BObject.BStr("moo"), "spam" to BObject.BStr("eggs")))
+         val writer = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
+        val bWriter = writer.buffered()
+        val bObject = BObject.BDict(mapOf("cow" to BObject.BStr("moo".toByteArray()), "spam" to BObject.BStr("eggs".toByteArray())))
         val expected = "d3:cow3:moo4:spam4:eggse"
         val actualLength = encodeDict(bWriter, bObject)
         bWriter.flush()
@@ -70,11 +69,11 @@ class EncoderTest {
 
     @Test
     fun testEncodeDictNested() {
-        val writer = StringWriter()
-        val bWriter = BufferedWriter(writer)
+         val writer = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
+        val bWriter = writer.buffered()
         val input = BObject.BDict(
             mapOf(
-                "info" to BObject.BStr("test"),
+                "info" to BObject.BStr("test".toByteArray()),
                 "list" to BObject.BList(
                     listOf(
                         BObject.BInt(1),
@@ -94,9 +93,9 @@ class EncoderTest {
 
     @Test
     fun testBencodeString() {
-        val writer = StringWriter()
-        val bWriter = BufferedWriter(writer)
-        val bObject = BObject.BStr("test")
+         val writer = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
+        val bWriter = writer.buffered()
+        val bObject = BObject.BStr("test".toByteArray())
         val expected = "4:test"
         val actualLength = bencode(bWriter, bObject)
         bWriter.flush()
@@ -106,8 +105,8 @@ class EncoderTest {
 
     @Test
     fun testBencodeInt() {
-        val writer = StringWriter()
-        val bWriter = BufferedWriter(writer)
+         val writer = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
+        val bWriter = writer.buffered()
         val bObject = BObject.BInt(123)
         val expected = "i123e"
         val actualLength = bencode(bWriter, bObject)
@@ -118,9 +117,9 @@ class EncoderTest {
 
     @Test
     fun testBencodeList() {
-        val writer = StringWriter()
-        val bWriter = BufferedWriter(writer)
-        val bObject = BObject.BList(listOf(BObject.BStr("a"), BObject.BInt(1)))
+         val writer = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
+        val bWriter = writer.buffered()
+        val bObject = BObject.BList(listOf(BObject.BStr("a".toByteArray()), BObject.BInt(1)))
         val expected = "l1:ai1ee"
         val actualLength = bencode(bWriter, bObject)
         bWriter.flush()
@@ -130,9 +129,9 @@ class EncoderTest {
 
     @Test
     fun testBencodeDict() {
-        val writer = StringWriter()
-        val bWriter = BufferedWriter(writer)
-        val bObject = BObject.BDict(mapOf("a" to BObject.BStr("b"), "c" to BObject.BInt(2)))
+         val writer = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
+        val bWriter = writer.buffered()
+        val bObject = BObject.BDict(mapOf("a" to BObject.BStr("b".toByteArray()), "c" to BObject.BInt(2)))
         val expected = "d1:a1:b1:ci2ee"
         val actualLength = bencode(bWriter, bObject)
         bWriter.flush()
@@ -142,8 +141,8 @@ class EncoderTest {
 
     @Test()
     fun testBencodeEmptyBList() {
-        val writer = StringWriter()
-        val bWriter = BufferedWriter(writer)
+         val writer = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
+        val bWriter = writer.buffered()
         val bObject = BObject.BList(emptyList())
         assertEquals(2, bencode(bWriter, bObject))// le
     }

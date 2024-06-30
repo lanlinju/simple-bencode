@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6b12048-ccaf-4443-b7eb-dd467fcd5d53" name="Changes" comment="Add support for Long type" />
+    <list default="true" id="a6b12048-ccaf-4443-b7eb-dd467fcd5d53" name="Changes" comment="Update README" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -129,7 +129,7 @@
     "Gradle.simple-bencode [test].executor": "Run",
     "Kotlin.MainKt.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feat-add-long",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Dev/Code/codecrafters-bittorrent-kotlin",
@@ -467,7 +467,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719658640714</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Update README">
+      <option name="closed" value="true" />
+      <created>1719662852609</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1719662852609</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -516,7 +524,8 @@
     <MESSAGE value="update version 1.0.1" />
     <MESSAGE value="update README.md" />
     <MESSAGE value="Add support for Long type" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add support for Long type" />
+    <MESSAGE value="Update README" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update README" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>

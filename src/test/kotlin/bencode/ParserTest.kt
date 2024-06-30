@@ -2,9 +2,7 @@ package bencode
 
 import com.lanli.bencode.BObject
 import com.lanli.bencode.parse
-import com.lanli.bencode.readNChars
-import java.io.BufferedReader
-import java.io.StringReader
+import java.io.ByteArrayInputStream
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -17,8 +15,8 @@ class ParserTest {
     @Test
     fun testDecodeString() {
         val input = "4:spam"
-        val reader = BufferedReader(StringReader(input))
-        val expected = BObject.BStr("spam")
+        val reader = ByteArrayInputStream(input.toByteArray())
+        val expected = BObject.BStr("spam".toByteArray())
         val actual = parse(reader)
         assertEquals(expected, actual)
     }
@@ -27,11 +25,11 @@ class ParserTest {
     fun testDecodeEmptyStringAndInt() {
         val input = ":"
         val input2 = "ie"
-        val reader = BufferedReader(StringReader(input))
+        val reader = ByteArrayInputStream(input.toByteArray())
         assertFailsWith<IllegalArgumentException> {
             parse(reader)
         }
-        val reader2 = BufferedReader(StringReader(input2))
+        val reader2 =ByteArrayInputStream(input2.toByteArray())
         assertFailsWith<NumberFormatException> {
             parse(reader2)
         }
@@ -40,7 +38,7 @@ class ParserTest {
     @Test
     fun testDecodeInt() {
         val input = "i32e"
-        val reader = BufferedReader(StringReader(input))
+        val reader = ByteArrayInputStream(input.toByteArray())
         val expected = BObject.BInt(32)
         val actual = parse(reader)
         assertEquals(expected, actual)
@@ -49,10 +47,10 @@ class ParserTest {
     @Test
     fun testDecodeList() {
         val input = "l4:spam4:eggsi42ee"
-        val reader = BufferedReader(StringReader(input))
+        val reader = ByteArrayInputStream(input.toByteArray())
         val expected = BObject.BList(listOf(
-            BObject.BStr("spam"),
-            BObject.BStr("eggs"),
+            BObject.BStr("spam".toByteArray()),
+            BObject.BStr("eggs".toByteArray()),
             BObject.BInt(42)
         ))
         val actual = parse(reader)
@@ -62,7 +60,7 @@ class ParserTest {
     @Test
     fun testDecodeEmptyList() {
         val input = "le"
-        val reader = BufferedReader(StringReader(input))
+        val reader = ByteArrayInputStream(input.toByteArray())
         val expected = BObject.BList(emptyList())
         val actual = parse(reader)
         assertEquals(expected, actual)
@@ -71,9 +69,9 @@ class ParserTest {
     @Test
     fun testDecodeDict() {
         val input = "d4:name4:John3:agei30ee"
-        val reader = BufferedReader(StringReader(input))
+        val reader = ByteArrayInputStream(input.toByteArray())
         val expected = BObject.BDict(mapOf(
-            "name" to BObject.BStr("John"),
+            "name" to BObject.BStr("John".toByteArray()),
             "age" to BObject.BInt(30)
         ))
         val actual = parse(reader)
@@ -83,7 +81,7 @@ class ParserTest {
     @Test
     fun testDecodeEmptyDict() {
         val input = "de"
-        val reader = BufferedReader(StringReader(input))
+        val reader = ByteArrayInputStream(input.toByteArray())
         val expected = BObject.BDict(emptyMap())
         val actual = parse(reader)
         assertEquals(expected, actual)
@@ -92,9 +90,9 @@ class ParserTest {
     @Test
     fun testDecodeNested() {
         val input = "d4:info4:test4:listli1ei2ei3eee"
-        val reader = BufferedReader(StringReader(input))
+        val reader = ByteArrayInputStream(input.toByteArray())
         val expected = BObject.BDict(mapOf(
-            "info" to BObject.BStr("test"),
+            "info" to BObject.BStr("test".toByteArray()),
             "list" to BObject.BList(listOf(
                 BObject.BInt(1),
                 BObject.BInt(2),
@@ -105,11 +103,11 @@ class ParserTest {
         assertEquals(expected, actual)
     }
 
-    @Test
-    fun testReadNChars() {
-        val input = "Hello, World!"
-        val reader = BufferedReader(StringReader(input))
-        val actual = reader.readNChars(input.length)
-        assertEquals(input, actual)
-    }
+//    @Test
+//    fun testReadNChars() {
+//        val input = "Hello"
+//        val reader = ByteArrayInputStream(input.toByteArray())
+//        val actual = reader.readNBytes(input.length)
+//        assertEquals(input.toByteArray().size, actual.size)
+//    }
 }

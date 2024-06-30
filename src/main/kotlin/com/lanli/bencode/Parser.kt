@@ -1,19 +1,34 @@
 package com.lanli.bencode
 
-import java.io.BufferedReader
+import java.io.BufferedInputStream
+import java.io.InputStream
 
 /**
  * 用于表示Bencode编码的不同类型的类
  */
 internal sealed class BObject {
-    data class BStr(val value: String) : BObject()
+    data class BStr(val value: ByteArray) : BObject() {
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (javaClass != other?.javaClass) return false
+
+            other as BStr
+
+            return value.contentEquals(other.value)
+        }
+
+        override fun hashCode(): Int {
+            return value.contentHashCode()
+        }
+    }
+
     data class BInt(val value: Long) : BObject()
     data class BList(val value: List<BObject>) : BObject()
     data class BDict(val value: Map<String, BObject>) : BObject()
 
     final override fun toString(): String {
         return when (this) {
-            is BStr -> "BStr('$value')"
+            is BStr -> "BStr('${value.decodeToString()}')"  // 将字节数组解码为字符串以进行打印
             is BInt -> "BInt($value)"
             is BList -> "BList(${value.joinToString(", ", "[", "]") { it.toString() }})"
             is BDict -> "BDict(${value.entries.joinToString(", ", "{", "}") { (k, v) -> "'$k': ${v.toString()}" }})"
@@ -21,12 +36,16 @@ internal sealed class BObject {
     }
 }
 
+internal fun parse(inputStream: InputStream): BObject {
+    return parse(inputStream.buffered())
+}
+
 /**
  * 从给定的[reader]中读取字节流转化成[BObject]
  *
  * 根据第一个字符判断数据类型并调用相应的解码函数
  */
-internal fun parse(reader: BufferedReader): BObject {
+internal fun parse(reader: BufferedInputStream): BObject {
     val peek = reader.peek()
     return when {
         peek in '0'..'9' -> BObject.BStr(decodeString(reader))
@@ -37,7 +56,7 @@ internal fun parse(reader: BufferedReader): BObject {
     }
 }
 
-internal fun BufferedReader.peek(): Char {
+internal fun BufferedInputStream.peek(): Char {
     mark(1)
     val char: Int = read()
     reset()
@@ -45,9 +64,9 @@ internal fun BufferedReader.peek(): Char {
 }
 
 /**
- * 解码字符串：格式为length:value，例如4:spam
+ * 解码字节数组：格式为length:value，例如4:spam
  */
-internal fun decodeString(reader: BufferedReader): String {
+internal fun decodeString(reader: BufferedInputStream): ByteArray {
     val length = buildString {
         while (true) {
             val char = reader.read().toChar()
@@ -55,13 +74,13 @@ internal fun decodeString(reader: BufferedReader): String {
             append(char)
         }
     }.toInt()
-    return reader.readNChars(length)
+    return reader.readNBytes(length)
 }
 
 /**
  * 解码整数：格式为i<integer>e，例如i32e
  */
-internal fun decodeInt(reader: BufferedReader): Long {
+internal fun decodeInt(reader: BufferedInputStream): Long {
     reader.read() // consume 'i'
     val number = buildString {
         while (true) {
@@ -76,7 +95,7 @@ internal fun decodeInt(reader: BufferedReader): Long {
 /**
  * 解码列表：格式为l<item1><item2>...e，例如l4:spam4:eggse
  */
-internal fun decodeList(reader: BufferedReader): BObject.BList {
+internal fun decodeList(reader: BufferedInputStream): BObject.BList {
     reader.read() // consume 'l'
     val list = mutableListOf<BObject>()
     while (true) {
@@ -94,7 +113,7 @@ internal fun decodeList(reader: BufferedReader): BObject.BList {
 /**
  * 解码字典：格式为d<key><value>...e，例如d3:cow3:moo4:spam4:eggse
  */
-internal fun decodeDict(reader: BufferedReader): BObject.BDict {
+internal fun decodeDict(reader: BufferedInputStream): BObject.BDict {
     reader.read() // consume 'd'
     val dict = mutableMapOf<String, BObject>()
     while (true) {
@@ -103,18 +122,9 @@ internal fun decodeDict(reader: BufferedReader): BObject.BDict {
             reader.read() // consume 'e'
             break
         }
-        val key = decodeString(reader)
+        val key = decodeString(reader).decodeToString()
         val value = parse(reader)
         dict[key] = value
     }
     return BObject.BDict(dict)
-}
-
-/**
- * 读取指定长度的字符
- */
-internal fun BufferedReader.readNChars(n: Int): String {
-    val charArray = CharArray(n)
-    read(charArray, 0, n)
-    return String(charArray)
 }

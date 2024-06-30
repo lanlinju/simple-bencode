@@ -11,7 +11,7 @@ class UnmarshalTest {
     @Test
     fun testUnmarshalString() {
         val clazz = String::class.java
-        val input = BObject.BStr("test")
+        val input = BObject.BStr("test".toByteArray())
         val expected = "test"
         val actual = unmarshal(clazz, input) as String
         assertEquals(expected, actual)
@@ -31,7 +31,7 @@ class UnmarshalTest {
 
     @Test
     fun testUnmarshalList() {
-        val input = BObject.BList(listOf(BObject.BStr("item0"), BObject.BStr("item1")))
+        val input = BObject.BList(listOf(BObject.BStr("item0".toByteArray()), BObject.BStr("item1".toByteArray())))
         val expected = listOf("item0", "item1")
         val actual = unmarshal(List::class.java, input) as List<*>
         assertEquals(expected, actual)
@@ -39,7 +39,7 @@ class UnmarshalTest {
 
     @Test
     fun testUnmarshalDict() {
-        val input = BObject.BDict(mapOf("name" to BObject.BStr("John"), "age" to BObject.BInt(20)))
+        val input = BObject.BDict(mapOf("name" to BObject.BStr("John".toByteArray()), "age" to BObject.BInt(20)))
         val expected = Person(name = "John", age = 20)
         val actual = unmarshalDict(Person::class.java, input.value) as Person
         assertEquals(expected, actual)
@@ -55,14 +55,14 @@ class UnmarshalTest {
         val addressWithList: List<Address> = emptyList()
     ) {
         fun toMap(): Map<String, BObject> {
-            val list2D = listWithList.map { l -> BObject.BList(l.map { BObject.BStr(it) }) }
+            val list2D = listWithList.map { l -> BObject.BList(l.map { BObject.BStr(it.toByteArray()) }) }
             val list2DWithAddress = listWithAddrInList.map { l -> BObject.BList(l.map { BObject.BDict(it.toMap()) }) }
             val listAddress = addressWithList.map { BObject.BDict(it.toMap()) }
             return mapOf(
-                "name" to BObject.BStr("John"),
+                "name" to BObject.BStr("John".toByteArray()),
                 "age" to BObject.BInt(20),
                 "address" to BObject.BDict(address.toMap()),
-                "listStr" to BObject.BList(listStr.map { BObject.BStr(it) }),
+                "listStr" to BObject.BList(listStr.map { BObject.BStr(it.toByteArray()) }),
                 "listWithList" to BObject.BList(list2D),
                 "listWithAddrInList" to BObject.BList(list2DWithAddress),
                 "addressWithList" to BObject.BList(listAddress)
@@ -74,15 +74,15 @@ class UnmarshalTest {
         fun toMap(): Map<String, BObject> {
             return mapOf(
                 "code" to BObject.BInt(code.toLong()),
-                "area" to BObject.BStr(area),
-                "list" to BObject.BList(list.map { BObject.BStr(it) })
+                "area" to BObject.BStr(area.toByteArray()),
+                "list" to BObject.BList(list.map { BObject.BStr(it.toByteArray()) })
             )
         }
     }
 
     @Test
     fun testUnmarshal() {
-        val input = BObject.BDict(mapOf("name" to BObject.BStr("John"), "age" to BObject.BInt(20)))
+        val input = BObject.BDict(mapOf("name" to BObject.BStr("John".toByteArray()), "age" to BObject.BInt(20)))
         val expected = Person(name = "John", age = 20)
         val actual = unmarshal(Person::class.java, input) as Person
         assertEquals(expected, actual)
@@ -93,7 +93,7 @@ class UnmarshalTest {
         val addr = Address(code = 111, area = "henan")
         val input = BObject.BDict(
             mapOf(
-                "name" to BObject.BStr("John"),
+                "name" to BObject.BStr("John".toByteArray()),
                 "age" to BObject.BInt(20),
                 "address" to BObject.BDict(addr.toMap())
             )

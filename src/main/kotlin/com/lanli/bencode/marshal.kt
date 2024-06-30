@@ -5,7 +5,8 @@ package com.lanli.bencode
  */
 internal fun marshal(any: Any): BObject {
     return when (any) {
-        is String -> marshalString(any)
+        is String -> marshalString(any.toByteArray())
+        is ByteArray -> marshalString(any)
         is Number -> marshalInt(any.toLong())
         is List<*> -> marshalList(any)
         else -> marshalDict(any)
@@ -13,9 +14,9 @@ internal fun marshal(any: Any): BObject {
 }
 
 /**
- * 将字符串 [value] 转换为 BObject.BStr。
+ * 将字节数组 [value] 转换为 BObject.BStr。
  */
-internal fun marshalString(value: String): BObject.BStr {
+internal fun marshalString(value: ByteArray): BObject.BStr {
     return BObject.BStr(value)
 }
 
@@ -43,7 +44,7 @@ internal fun marshalDict(value: Any): BObject.BDict {
         .associate { field ->
             field.isAccessible = true
             val name = field.name
-            name to marshal(field.get(value))
+            name to marshal(field.get(value)!!)
         }
     return BObject.BDict(bDict)
 }

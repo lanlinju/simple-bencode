@@ -17,11 +17,13 @@ internal fun unmarshal(clazz: Class<*>, bObject: BObject): Any {
     }
 }
 
-internal fun unmarshalString(clazz: Class<*>, o: BObject.BStr): String {
-    if (clazz == String::class.java || clazz == Nothing::class.java) {
-        return o.value
+internal fun unmarshalString(clazz: Class<*>, o: BObject.BStr): Any {
+    return when(clazz) {
+        ByteArray::class.java -> o.value
+        String::class.java -> String(o.value)
+        Nothing::class.java-> String(o.value)
+        else -> throw IllegalArgumentException("Type mismatch: expected ByteArray or String but got ${clazz.name}")
     }
-    throw IllegalArgumentException("Type mismatch: expected String but got ${clazz.name}")
 }
 
 /**
@@ -61,8 +63,8 @@ internal fun unmarshalList(genericClazz: Class<*>, list: List<BObject>): List<An
         when (bObject) {
             is BObject.BStr -> unmarshalString(genericClazz, bObject)
             is BObject.BInt -> unmarshalInt(genericClazz, bObject)
-            is BObject.BList -> unmarshalList(genericClazz, bObject.value) // TODO():未作类型检查
-            is BObject.BDict -> unmarshalDict(genericClazz, bObject.value) // 未作类型检查
+            is BObject.BList -> unmarshalList(genericClazz, bObject.value) // 添加类型检查
+            is BObject.BDict -> unmarshalDict(genericClazz, bObject.value) // 添加类型检查
         }
     }
 }
@@ -72,7 +74,7 @@ internal fun unmarshalList(genericClazz: Class<*>, list: List<BObject>): List<An
  * 返回反序列化后的实例对象。
  */
 internal fun unmarshalDict(clazz: Class<*>, dict: Map<String, BObject>): Any {
-    val instance = clazz.createInstance()
+    val instance = clazz.getDeclaredConstructor().newInstance()
     for ((key, value) in dict) {
         val field = clazz.declaredFields.find { it.name == key } ?: continue
         field.isAccessible = true
@@ -84,17 +86,18 @@ internal fun unmarshalDict(clazz: Class<*>, dict: Map<String, BObject>): Any {
 private fun setFieldValue(any: Any, field: Field, value: BObject) {
     val fieldType = field.type
     when (value) {
-        is BObject.BStr -> setStringField(any, field, value, fieldType)
+        is BObject.BStr -> setByteArrayField(any, field, value, fieldType)
         is BObject.BInt -> setIntField(any, field, value, fieldType)
         is BObject.BList -> setListField(any, field, value, fieldType)
         is BObject.BDict -> setDictField(any, field, value, fieldType)
     }
 }
 
-private fun setStringField(any: Any, field: Field, value: BObject.BStr, fieldType: Class<*>) {
+private fun setByteArrayField(any: Any, field: Field, value: BObject.BStr, fieldType: Class<*>) {
     when (fieldType) {
-        String::class.java -> field.set(any, value.value)
-        else -> throw IllegalArgumentException("Type mismatch: expected String but got ${fieldType.name}")
+        ByteArray::class.java -> field.set(any, value.value)
+        String::class.java -> field.set(any, String(value.value))
+        else -> throw IllegalArgumentException("Type mismatch: expected ByteArray or String but got ${fieldType.name}")
     }
 }
 
