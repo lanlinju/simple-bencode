@@ -3,11 +3,11 @@ package bencode
 import com.lanli.bencode.createInstance
 import com.lanli.bencode.extractNestedType
 import com.lanli.bencode.isListType
-import com.lanli.bencode.parseTypeHierarchy
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
+import java.lang.reflect.WildcardType
 
 class UtilTest {
 
@@ -50,6 +50,37 @@ class UtilTest {
     abstract class TypeReference<T> {
         val type: Type
             get() = (this.javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0]
+    }
+
+    /**
+     * 例如List<List<String>> 返回 [List,List,String]
+     */
+    internal fun parseTypeHierarchy(type: Type): List<Class<*>> {
+        val result = mutableListOf<Class<*>>()
+        parseTypeRecursive(type, result)
+        return result
+    }
+
+    private fun parseTypeRecursive(currentType: Type, result: MutableList<Class<*>>) {
+        when (currentType) {
+            is ParameterizedType -> {
+                val rawType = currentType.rawType as Class<*>
+                result.add(rawType)
+                val actualType = currentType.actualTypeArguments[0]
+                parseTypeRecursive(actualType, result)
+            }
+
+            is WildcardType -> {
+                val upperBound = currentType.upperBounds[0]
+                parseTypeRecursive(upperBound, result)
+            }
+
+            is Class<*> -> {
+                result.add(currentType)
+            }
+
+            else -> throw IllegalArgumentException("Unknown type: $currentType")
+        }
     }
 }
 

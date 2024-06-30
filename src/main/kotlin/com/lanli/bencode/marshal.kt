@@ -43,7 +43,8 @@ internal fun marshalDict(value: Any): BObject.BDict {
     val bDict = value::class.java.declaredFields
         .associate { field ->
             field.isAccessible = true
-            val name = field.name
+            val annotation = field.getAnnotation(BencodeName::class.java)
+            val name = annotation?.name ?: field.name
             name to marshal(field.get(value)!!)
         }
     return BObject.BDict(bDict)

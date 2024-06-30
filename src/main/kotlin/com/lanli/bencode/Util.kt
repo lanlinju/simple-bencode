@@ -27,34 +27,3 @@ internal fun extractNestedType(type: Type): Class<*> {
 internal fun isListType(clazz: Class<*>): Boolean {
     return List::class.java.isAssignableFrom(clazz)
 }
-
-/**
- * 例如List<List<String>> 返回 [List,List,String]
- */
-internal fun parseTypeHierarchy(type: Type): List<Class<*>> {
-    val result = mutableListOf<Class<*>>()
-    parseTypeRecursive(type, result)
-    return result
-}
-
-private fun parseTypeRecursive(currentType: Type, result: MutableList<Class<*>>) {
-    when (currentType) {
-        is ParameterizedType -> {
-            val rawType = currentType.rawType as Class<*>
-            result.add(rawType)
-            val actualType = currentType.actualTypeArguments[0]
-            parseTypeRecursive(actualType, result)
-        }
-
-        is WildcardType -> {
-            val upperBound = currentType.upperBounds[0]
-            parseTypeRecursive(upperBound, result)
-        }
-
-        is Class<*> -> {
-            result.add(currentType)
-        }
-
-        else -> throw IllegalArgumentException("Unknown type: $currentType")
-    }
-}

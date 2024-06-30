@@ -2,6 +2,10 @@ package com.lanli.bencode
 
 import java.lang.reflect.Field
 
+@Target(AnnotationTarget.FIELD)
+@Retention
+annotation class BencodeName(val name: String)
+
 /**
  * 根据 BObject 类型 [bObject] 执行反序列化操作。
  * 由于类型擦除(Type Erasure),以l开头的List列表的内部类型，只能是String或者Int类型
@@ -18,10 +22,10 @@ internal fun unmarshal(clazz: Class<*>, bObject: BObject): Any {
 }
 
 internal fun unmarshalString(clazz: Class<*>, o: BObject.BStr): Any {
-    return when(clazz) {
+    return when (clazz) {
         ByteArray::class.java -> o.value
         String::class.java -> String(o.value)
-        Nothing::class.java-> String(o.value)
+        Nothing::class.java -> String(o.value)
         else -> throw IllegalArgumentException("Type mismatch: expected ByteArray or String but got ${clazz.name}")
     }
 }
@@ -74,26 +78,37 @@ internal fun unmarshalList(genericClazz: Class<*>, list: List<BObject>): List<An
  * 返回反序列化后的实例对象。
  */
 internal fun unmarshalDict(clazz: Class<*>, dict: Map<String, BObject>): Any {
-    val instance = clazz.getDeclaredConstructor().newInstance()
+    val instance = clazz.createInstance()
     for ((key, value) in dict) {
-        val field = clazz.declaredFields.find { it.name == key } ?: continue
+        val field = findField(clazz, key) ?: continue
         field.isAccessible = true
         setFieldValue(instance, field, value)
     }
     return instance
 }
 
+/**
+ * 查找类 [clazz] 中具有给定键 [key] 的字段。
+ * 如果字段上有 @BencodeName 注解且注解的名称与键匹配，或者字段名称与键匹配，则返回该字段。
+ */
+private fun findField(clazz: Class<*>, key: String): Field? {
+    return clazz.declaredFields.find {
+        val annotation = it.getAnnotation(BencodeName::class.java)
+        it.name == key || annotation?.name == key
+    }
+}
+
 private fun setFieldValue(any: Any, field: Field, value: BObject) {
     val fieldType = field.type
     when (value) {
-        is BObject.BStr -> setByteArrayField(any, field, value, fieldType)
+        is BObject.BStr -> setStringField(any, field, value, fieldType)
         is BObject.BInt -> setIntField(any, field, value, fieldType)
         is BObject.BList -> setListField(any, field, value, fieldType)
         is BObject.BDict -> setDictField(any, field, value, fieldType)
     }
 }
 
-private fun setByteArrayField(any: Any, field: Field, value: BObject.BStr, fieldType: Class<*>) {
+private fun setStringField(any: Any, field: Field, value: BObject.BStr, fieldType: Class<*>) {
     when (fieldType) {
         ByteArray::class.java -> field.set(any, value.value)
         String::class.java -> field.set(any, String(value.value))

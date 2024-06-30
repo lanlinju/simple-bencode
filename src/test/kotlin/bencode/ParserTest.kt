@@ -103,11 +103,4 @@ class ParserTest {
         assertEquals(expected, actual)
     }
 
-//    @Test
-//    fun testReadNChars() {
-//        val input = "Hello"
-//        val reader = ByteArrayInputStream(input.toByteArray())
-//        val actual = reader.readNBytes(input.length)
-//        assertEquals(input.toByteArray().size, actual.size)
-//    }
 }
