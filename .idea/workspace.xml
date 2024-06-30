@@ -140,7 +140,7 @@
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "project.structure.side.proportion": "0.4297052",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -527,5 +527,12 @@
     <MESSAGE value="Update README" />
     <option name="LAST_COMMIT_MESSAGE" value="Update README" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="java.io.BufferedReader" memberName="in" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>
