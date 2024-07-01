@@ -1,5 +1,7 @@
 package com.lanli.bencode
 
+import java.lang.reflect.Field
+
 /**
  * 将给定对象 [any] 转换为对应的 BObject。
  */
@@ -43,9 +45,16 @@ internal fun marshalDict(value: Any): BObject.BDict {
     val bDict = value::class.java.declaredFields
         .associate { field ->
             field.isAccessible = true
-            val annotation = field.getAnnotation(BencodeName::class.java)
-            val name = annotation?.name ?: field.name
+            val name = getFieldName(field)
             name to marshal(field.get(value)!!)
         }
     return BObject.BDict(bDict)
+}
+
+/**
+ * 优先获取注解BencodeName里的名称，否则使用字段默认名
+ */
+private fun getFieldName(field: Field): String {
+    val annotation = field.getAnnotation(BencodeName::class.java)
+    return annotation?.name ?: field.name
 }

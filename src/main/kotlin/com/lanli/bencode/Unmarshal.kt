@@ -67,8 +67,8 @@ internal fun unmarshalList(genericClazz: Class<*>, list: List<BObject>): List<An
         when (bObject) {
             is BObject.BStr -> unmarshalString(genericClazz, bObject)
             is BObject.BInt -> unmarshalInt(genericClazz, bObject)
-            is BObject.BList -> unmarshalList(genericClazz, bObject.value) // 添加类型检查
-            is BObject.BDict -> unmarshalDict(genericClazz, bObject.value) // 添加类型检查
+            is BObject.BList -> unmarshalList(genericClazz, bObject.value)
+            is BObject.BDict -> unmarshalDict(genericClazz, bObject.value)
         }
     }
 }
