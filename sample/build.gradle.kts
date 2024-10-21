@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.lanlinju:simple-bencode:1.0.3")
+    implementation("com.github.lanlinju:simple-bencode:1.0.4")
     testImplementation(kotlin("test"))
 }
 
