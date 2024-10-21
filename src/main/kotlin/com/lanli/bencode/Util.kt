@@ -1,5 +1,6 @@
 package com.lanli.bencode
 
+import java.lang.reflect.Field
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 import java.lang.reflect.WildcardType
@@ -26,4 +27,16 @@ internal fun extractNestedType(type: Type): Class<*> {
  */
 internal fun isListType(clazz: Class<*>): Boolean {
     return List::class.java.isAssignableFrom(clazz)
+}
+
+/**
+ * 递归获取类及其父类的所有字段
+ */
+fun getAllFields(clazz: Class<*>): List<Field> {
+    val fields = clazz.declaredFields.toMutableList()
+    val superClass = clazz.superclass
+    if (superClass != null) {
+        fields.addAll(getAllFields(superClass)) // 递归获取父类字段
+    }
+    return fields
 }

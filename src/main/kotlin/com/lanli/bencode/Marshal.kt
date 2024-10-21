@@ -37,17 +37,13 @@ internal fun marshalList(value: List<*>): BObject.BList {
     return BObject.BList(bList)
 }
 
-/**
- * 将任意对象 [value] 转换为 BObject.BDict。
- * 对象的每个字段将作为字典的一个键值对。
- */
 internal fun marshalDict(value: Any): BObject.BDict {
-    val bDict = value::class.java.declaredFields
-        .associate { field ->
-            field.isAccessible = true
-            val name = getFieldName(field)
-            name to marshal(field.get(value)!!)
-        }
+    val allFields = getAllFields(value::class.java)
+    val bDict = allFields.associate { field ->
+        field.isAccessible = true
+        val name = getFieldName(field)
+        name to marshal(field.get(value)!!)
+    }
     return BObject.BDict(bDict)
 }
 
