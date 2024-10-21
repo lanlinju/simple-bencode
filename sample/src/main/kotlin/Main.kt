@@ -29,16 +29,16 @@ fun main() {
 data class Person(val name: String, val age: Int)
 
 abstract class KRPCRequest(
-    @BencodeName("q") val messageType: String,     // q,r,e
-    @BencodeName("y") val y: String = "q",         // query
+    @BencodeName("q") val messageType: String,     // Query type
+    @BencodeName("y") val y: String = "q",         // q,r,e
     @BencodeName("t") val transactionId: String    // Transaction ID
 )
 
-//json example: {"t":"bb", "y":"q", "q":"ping", "a":{"id":"abcdefghij0123456789"}}
+// Json example: {"t":"bb", "y":"q", "q":"ping", "a":{"id":"abcdefghij0123456789"}}
 class PingRequest(
     transactionId: String,
     @BencodeName("a") val argument: PingRequestArgument
-) : KRPCRequest("ping", transactionId = transactionId)
+) : KRPCRequest(messageType = "ping", transactionId = transactionId)
 
 class PingRequestArgument(
     @BencodeName("id") val id: String
