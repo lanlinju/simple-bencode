@@ -1,4 +1,4 @@
-package com.lanli.bencode
+package com.lanlinju.bencode
 
 import java.lang.reflect.Field
 import kotlin.reflect.KClass

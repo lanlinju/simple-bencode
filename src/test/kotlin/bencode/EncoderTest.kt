@@ -1,6 +1,6 @@
 package bencode
 
-import com.lanli.bencode.*
+import com.lanlinju.bencode.*
 import java.io.ByteArrayOutputStream
 import kotlin.test.Test
 import kotlin.test.assertEquals

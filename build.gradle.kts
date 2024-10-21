@@ -3,7 +3,7 @@ plugins {
     `maven-publish`
 }
 
-group = "com.lanli"
+group = "com.lanlinju"
 version = "1.0.3"
 
 repositories {
@@ -25,7 +25,7 @@ kotlin {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "com.lanli"
+            groupId = "com.lanlinju"
             artifactId = "bencode"
             version = rootProject.version.toString()
 

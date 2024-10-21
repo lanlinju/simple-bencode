@@ -1,7 +1,7 @@
 package bencode
 
-import com.lanli.bencode.BObject
-import com.lanli.bencode.parse
+import com.lanlinju.bencode.BObject
+import com.lanlinju.bencode.parse
 import java.io.ByteArrayInputStream
 import kotlin.test.Test
 import kotlin.test.assertEquals

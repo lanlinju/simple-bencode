@@ -1,8 +1,8 @@
 package bencode
 
-import com.lanli.bencode.createInstance
-import com.lanli.bencode.extractNestedType
-import com.lanli.bencode.isListType
+import com.lanlinju.bencode.createInstance
+import com.lanlinju.bencode.extractNestedType
+import com.lanlinju.bencode.isListType
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.lang.reflect.ParameterizedType

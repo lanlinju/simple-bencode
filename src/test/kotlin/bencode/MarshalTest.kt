@@ -1,7 +1,7 @@
 package bencode
 
-import com.lanli.bencode.BObject
-import com.lanli.bencode.marshal
+import com.lanlinju.bencode.BObject
+import com.lanlinju.bencode.marshal
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

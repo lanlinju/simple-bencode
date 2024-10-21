@@ -1,7 +1,7 @@
 package bencode
 
-import com.lanli.bencode.Bencode
-import com.lanli.bencode.BencodeName
+import com.lanlinju.bencode.Bencode
+import com.lanlinju.bencode.BencodeName
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.io.ByteArrayInputStream

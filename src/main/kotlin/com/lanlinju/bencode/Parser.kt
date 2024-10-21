@@ -1,4 +1,4 @@
-package com.lanli.bencode
+package com.lanlinju.bencode
 
 import java.io.BufferedInputStream
 import java.io.InputStream
