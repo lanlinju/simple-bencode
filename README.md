@@ -80,7 +80,7 @@ Step 2. Add the dependency
 
 ```kotlin
 dependencies {
-    implementation("com.github.lanlinju:simple-bencode:1.0.4")
+    implementation("com.github.lanlinju:simple-bencode:1.0.5")
 }
 ```
 
@@ -102,18 +102,18 @@ fun main() {
 }
 
 data class RawFile(
-    val announce: String = "",
+    val announce: String,
     @BencodeName("created by")
-    val createdBy: String = "",
-    val info: RawInfo = RawInfo(),
+    val createdBy: String,
+    val info: RawInfo,
 )
 
 data class RawInfo(
-    val length: Long = 0L,
-    val name: String = "",
+    val length: Long,
+    val name: String,
     @BencodeName("piece length")
-    val pieceLength: Long = 0L,
-    val pieces: ByteArray = ByteArray(0)
+    val pieceLength: Long,
+    val pieces: ByteArray
 )
 
 @OptIn(ExperimentalStdlibApi::class)
