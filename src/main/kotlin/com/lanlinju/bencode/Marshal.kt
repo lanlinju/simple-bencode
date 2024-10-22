@@ -1,9 +1,7 @@
 package com.lanlinju.bencode
 
-import java.lang.reflect.Field
-
 /**
- * 将给定对象 [any] 转换为对应的 BObject。
+ * Converts the given object [any] to the corresponding BObject.
  */
 internal fun marshal(any: Any): BObject {
     return when (any) {
@@ -16,41 +14,37 @@ internal fun marshal(any: Any): BObject {
 }
 
 /**
- * 将字节数组 [value] 转换为 BObject.BStr。
+ * Converts a byte array [bytes] to a BObject.BStr.
  */
-internal fun marshalString(value: ByteArray): BObject.BStr {
-    return BObject.BStr(value)
+internal fun marshalString(bytes: ByteArray): BObject.BStr {
+    return BObject.BStr(bytes)
 }
 
 /**
- * 将整数 [value] 转换为 BObject.BInt。
+ * Converts an integer [value] to a BObject.BInt.
  */
 internal fun marshalInt(value: Long): BObject.BInt {
     return BObject.BInt(value)
 }
 
 /**
- * 将列表 [value] 转换为 BObject.BList。
+ * Converts a list [list] to a BObject.BList.
  */
-internal fun marshalList(value: List<*>): BObject.BList {
-    val bList = value.map { marshal(it!!) }
+internal fun marshalList(list: List<*>): BObject.BList {
+    val bList = list.map { marshal(it!!) }
     return BObject.BList(bList)
 }
 
-internal fun marshalDict(value: Any): BObject.BDict {
-    val allFields = getAllFields(value::class.java)
+/**
+ * Converts an object [any] to a BObject.BDict by reflecting on its fields.
+ * Uses reflection to retrieve all fields from the class and maps them to Bencode format.
+ */
+internal fun marshalDict(any: Any): BObject.BDict {
+    val allFields = getAllFields(any::class.java)
     val bDict = allFields.associate { field ->
         field.isAccessible = true
         val name = getFieldName(field)
-        name to marshal(field.get(value)!!)
+        name to marshal(field.get(any))
     }
     return BObject.BDict(bDict)
-}
-
-/**
- * 优先获取注解BencodeName里的名称，否则使用字段默认名
- */
-private fun getFieldName(field: Field): String {
-    val annotation = field.getAnnotation(BencodeName::class.java)
-    return annotation?.name ?: field.name
 }

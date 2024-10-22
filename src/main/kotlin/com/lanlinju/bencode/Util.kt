@@ -5,14 +5,10 @@ import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 import java.lang.reflect.WildcardType
 
-internal fun <T> Class<T>.createInstance(): T {
-    return getDeclaredConstructor().newInstance()
-}
-
 /**
- * 获取实际的最List内部泛型参数类型
- * e.g. List<List<String>> 返回 String
- * e.g. List<List<Int>> 返回 Int
+ * Retrieves the actual generic parameter type of a List.
+ * For example, List<List<String>> returns String.
+ * For example, List<List<Int>> returns Int.
  */
 internal fun extractNestedType(type: Type): Class<*> {
     return when (type) {
@@ -23,20 +19,27 @@ internal fun extractNestedType(type: Type): Class<*> {
 }
 
 /**
- * 判断一个Class<*>是否为List集合类型
+ * Checks whether a Class<*> is a List type.
  */
 internal fun isListType(clazz: Class<*>): Boolean {
     return List::class.java.isAssignableFrom(clazz)
 }
 
 /**
- * 递归获取类及其父类的所有字段
+ * Recursively retrieves all fields of a class and its superclasses.
  */
-fun getAllFields(clazz: Class<*>): List<Field> {
+internal fun getAllFields(clazz: Class<*>): List<Field> {
     val fields = clazz.declaredFields.toMutableList()
-    val superClass = clazz.superclass
-    if (superClass != null) {
-        fields.addAll(getAllFields(superClass)) // 递归获取父类字段
+    clazz.superclass?.let { superClass ->
+        fields.addAll(getAllFields(superClass)) // Recursively retrieve fields from superclass
     }
     return fields
+}
+
+/**
+ * Gets the field name. If the field has a BencodeName annotation, it uses the name from the annotation.
+ * Otherwise, it uses the default field name.
+ */
+internal fun getFieldName(field: Field): String {
+    return field.getAnnotation(BencodeName::class.java)?.name ?: field.name
 }

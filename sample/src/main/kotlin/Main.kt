@@ -44,7 +44,7 @@ class PingRequestArgument(
     @BencodeName("id") val id: String
 )
 
-class KRPCError(
+data class KRPCError(
     @BencodeName("t") val transactionId: String,
     @BencodeName("y") val messageType: String = "e",
     @BencodeName("e") val errors: List<Any>           // error code and error message

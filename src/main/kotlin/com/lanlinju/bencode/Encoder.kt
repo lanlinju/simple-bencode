@@ -3,8 +3,8 @@ package com.lanlinju.bencode
 import java.io.BufferedOutputStream
 
 /**
- * 将 [BObject] 编码为 Bencode 格式并写入指定的 [BufferedOutputStream] 中。
- * 返回写入的总字节长度。
+ * Encodes the given [BObject] into Bencode format and writes it to the specified [BufferedOutputStream].
+ * Returns the total number of bytes written.
  */
 internal fun bencode(writer: BufferedOutputStream, bObject: BObject): Int {
     var writtenLength = 0
@@ -23,8 +23,10 @@ internal fun bencode(writer: BufferedOutputStream, bObject: BObject): Int {
 }
 
 /**
- * 将 BObject.BDict 编码为 Bencode 字典格式并写入指定的 BufferedOutputStream 中。
- * 返回写入的总字节长度。
+ * Encodes [BObject.BDict] as a Bencode dictionary and writes it to the specified [BufferedOutputStream].
+ * Returns the total number of bytes written.
+ *
+ * Format example: dkey1:value1key2:value2e (where 'd' and 'e' mark the dictionary start and end)
  */
 internal fun encodeDict(writer: BufferedOutputStream, bObject: BObject.BDict): Int {
     writer.write('d'.code)
@@ -35,6 +37,12 @@ internal fun encodeDict(writer: BufferedOutputStream, bObject: BObject.BDict): I
     return length
 }
 
+/**
+ * Encodes [BObject.BList] as a Bencode list and writes it to the specified [BufferedOutputStream].
+ * Returns the total number of bytes written.
+ *
+ * Format example: lvalue1value2e (where 'l' and 'e' mark the list start and end)
+ */
 internal fun encodeList(writer: BufferedOutputStream, bObject: BObject.BList): Int {
     writer.write('l'.code)
     val length = bObject.value.fold(2) { acc, e -> acc + bencode(writer, e) }
@@ -43,8 +51,10 @@ internal fun encodeList(writer: BufferedOutputStream, bObject: BObject.BList): I
 }
 
 /**
- * 将 BObject.BStr 的 ByteArray 值编码为 Bencode 字符串格式并写入指定的 BufferedOutputStream 中。
- * 返回写入的总字节长度。
+ * Encodes the [ByteArray] value of [BObject.BStr] as a Bencode string and writes it to the specified [BufferedOutputStream].
+ * Returns the total number of bytes written.
+ *
+ * Format example: 4:test (where '4' is the length of the string and 'test' is the value)
  */
 internal fun encodeString(writer: BufferedOutputStream, value: ByteArray): Int {
     val byteLength = value.size
@@ -55,10 +65,11 @@ internal fun encodeString(writer: BufferedOutputStream, value: ByteArray): Int {
     return lenStr.size + 1 + byteLength
 }
 
-
 /**
- * 将 BObject.BInt 的值编码为 Bencode 整数格式并写入指定的 BufferedOutputStream 中。
- * 返回写入的总字节长度。
+ * Encodes the [Long] value of [BObject.BInt] as a Bencode integer and writes it to the specified [BufferedOutputStream].
+ * Returns the total number of bytes written.
+ *
+ * Format example: i42e (where 'i' and 'e' mark the integer start and end)
  */
 internal fun encodeInt(writer: BufferedOutputStream, value: Long): Int {
     val intStr = "i${value}e".toByteArray()

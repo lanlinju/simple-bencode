@@ -4,7 +4,7 @@ import java.io.BufferedInputStream
 import java.io.InputStream
 
 /**
- * 用于表示Bencode编码的不同类型的类
+ * Sealed class representing the different types of Bencode-encoded objects.
  */
 internal sealed class BObject {
     data class BStr(val value: ByteArray) : BObject() {
@@ -28,7 +28,7 @@ internal sealed class BObject {
 
     final override fun toString(): String {
         return when (this) {
-            is BStr -> "BStr('${value.decodeToString()}')"  // 将字节数组解码为字符串以进行打印
+            is BStr -> "BStr('${value.decodeToString()}')"  // Decodes byte array to a string for printing
             is BInt -> "BInt($value)"
             is BList -> "BList(${value.joinToString(", ", "[", "]") { it.toString() }})"
             is BDict -> "BDict(${value.entries.joinToString(", ", "{", "}") { (k, v) -> "'$k': ${v.toString()}" }})"
@@ -41,21 +41,24 @@ internal fun parse(inputStream: InputStream): BObject {
 }
 
 /**
- * 从给定的[reader]中读取字节流转化成[BObject]
+ * Reads the byte stream from the given [reader] and converts it into a [BObject].
  *
- * 根据第一个字符判断数据类型并调用相应的解码函数
+ * Determines the data type based on the first character and calls the corresponding decoding function.
  */
 internal fun parse(reader: BufferedInputStream): BObject {
     val peek = reader.peek()
     return when {
-        peek in '0'..'9' -> BObject.BStr(decodeString(reader))
-        peek == 'i' -> BObject.BInt(decodeInt(reader))
+        peek in '0'..'9' -> decodeString(reader)
+        peek == 'i' -> decodeInt(reader)
         peek == 'l' -> decodeList(reader)
         peek == 'd' -> decodeDict(reader)
         else -> throw IllegalArgumentException("Invalid Bencode data")
     }
 }
 
+/**
+ * Peeks at the next character in the stream without consuming it.
+ */
 internal fun BufferedInputStream.peek(): Char {
     mark(1)
     val char: Int = read()
@@ -64,9 +67,9 @@ internal fun BufferedInputStream.peek(): Char {
 }
 
 /**
- * 解码字节数组：格式为length:value，例如4:spam
+ * Decodes a byte array in the format of length:value, e.g., 4:spam
  */
-internal fun decodeString(reader: BufferedInputStream): ByteArray {
+internal fun decodeString(reader: BufferedInputStream): BObject.BStr {
     val length = buildString {
         while (true) {
             val char = reader.read().toChar()
@@ -74,13 +77,13 @@ internal fun decodeString(reader: BufferedInputStream): ByteArray {
             append(char)
         }
     }.toInt()
-    return reader.readNBytes(length)
+    return BObject.BStr(reader.readNBytes(length))
 }
 
 /**
- * 解码整数：格式为i<integer>e，例如i32e
+ * Decodes an integer in the format of i<integer>e, e.g., i32e
  */
-internal fun decodeInt(reader: BufferedInputStream): Long {
+internal fun decodeInt(reader: BufferedInputStream): BObject.BInt {
     reader.read() // consume 'i'
     val number = buildString {
         while (true) {
@@ -89,11 +92,11 @@ internal fun decodeInt(reader: BufferedInputStream): Long {
             append(char)
         }
     }.toLong()
-    return number
+    return BObject.BInt(number)
 }
 
 /**
- * 解码列表：格式为l<item1><item2>...e，例如l4:spam4:eggse
+ * Decodes a list in the format of l<item1><item2>...e, e.g., l4:spam4:eggse
  */
 internal fun decodeList(reader: BufferedInputStream): BObject.BList {
     reader.read() // consume 'l'
@@ -104,14 +107,14 @@ internal fun decodeList(reader: BufferedInputStream): BObject.BList {
             reader.read() // consume 'e'
             break
         }
-        // 递归解析列表中的每一项
+        // Recursively parse each item in the list
         list.add(parse(reader))
     }
     return BObject.BList(list)
 }
 
 /**
- * 解码字典：格式为d<key><value>...e，例如d3:cow3:moo4:spam4:eggse
+ * Decodes a dictionary in the format of d<key><value>...e, e.g., d3:cow3:moo4:spam4:eggse
  */
 internal fun decodeDict(reader: BufferedInputStream): BObject.BDict {
     reader.read() // consume 'd'
@@ -122,7 +125,7 @@ internal fun decodeDict(reader: BufferedInputStream): BObject.BDict {
             reader.read() // consume 'e'
             break
         }
-        val key = decodeString(reader).decodeToString()
+        val key = decodeString(reader).value.decodeToString()
         val value = parse(reader)
         dict[key] = value
     }

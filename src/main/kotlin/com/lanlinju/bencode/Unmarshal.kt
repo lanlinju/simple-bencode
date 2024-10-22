@@ -9,9 +9,8 @@ import kotlin.reflect.full.primaryConstructor
 annotation class BencodeName(val name: String)
 
 /**
- * 根据 BObject 类型 [bObject] 执行反序列化操作。
- *
- * 返回反序列化后的对象。
+ * Deserializes the given BObject [bObject] into an instance of the specified class [clazz].
+ * Returns the deserialized object of type [clazz].
  */
 internal fun unmarshal(clazz: Class<*>, bObject: BObject): Any {
     return when (bObject) {
@@ -22,6 +21,10 @@ internal fun unmarshal(clazz: Class<*>, bObject: BObject): Any {
     }
 }
 
+/**
+ * Deserializes a BObject.BStr (byte array) into an object of the specified class type [clazz].
+ * If [clazz] is ByteArray, it returns the byte array directly. Otherwise, it decodes the byte array into a String.
+ */
 internal fun unmarshalString(clazz: Class<*>, bytes: ByteArray): Any {
     return when (clazz) {
         ByteArray::class.java -> bytes
@@ -30,12 +33,10 @@ internal fun unmarshalString(clazz: Class<*>, bytes: ByteArray): Any {
 }
 
 /**
- * 执行整数类型的反序列化
- *
- * 执行字符串类型的反序列化
- * [Nothing]只是用于表明直接解析[Int] e.g. i32e
+ * Deserializes a BObject.BInt into a numeric type of the specified class [clazz].
+ * If the target class is [Int], it converts the value to Int, otherwise it returns the [Long] value.
  */
-internal fun unmarshalInt(clazz: Class<*>, value:Long): Any {
+internal fun unmarshalInt(clazz: Class<*>, value: Long): Any {
     return when (clazz) {
         Int::class.java -> value.toInt()
         else -> value
@@ -43,55 +44,76 @@ internal fun unmarshalInt(clazz: Class<*>, value:Long): Any {
 }
 
 /**
- * 根据指定的 [genericClazz] 和 BObject.BList 对象 [list] 执行列表类型的反序列化。
- * 返回反序列化后的列表对象。
+ * Deserializes a BObject.BList into a list of objects of the specified [clazz].
+ * Each element in the list is deserialized recursively.
  */
 internal fun unmarshalList(clazz: Class<*>, list: List<BObject>): Any {
     if (list.isEmpty()) return emptyList<Any>()
-
     return list.map { bObject -> unmarshal(clazz, bObject) }
 }
 
 /**
- * 根据指定的 [Class] 和 BObject.BDict 对象 [dict] 执行字典类型的反序列化。
- * 返回反序列化后的实例对象。
+ * Deserializes a BObject.BDict into an instance of the specified class [clazz].
+ * The dictionary values are used to set the corresponding fields of the class.
  */
 internal fun unmarshalDict(clazz: Class<*>, dict: Map<String, BObject>): Any {
     val fields = getAllFields(clazz)
     val instance = createInstance(clazz, fields, dict)
 
-    for ((key, value) in dict) {
-        val field = findField(fields, key) ?: continue
+    fields.forEach { field ->
+        val key = getFieldName(field)  // Get the field name (including any annotation name processing)
+        val value = dict[key] ?: return@forEach  // Skip if the field is not in the dictionary
         field.isAccessible = true
-        field.set(instance, unmarshal(field.type, value))
+
+        // Determine if the field type is a List, and if so, extract the nested type
+        val targetType = getFieldTargetType(field)
+
+        // Deserialize and set the field value
+        field.set(instance, unmarshal(targetType, value))
     }
+
     return instance
 }
 
+/**
+ * Determines if the field type is a List and extracts its nested type,
+ * otherwise returns the original type of the field.
+ */
+private fun getFieldTargetType(field: Field): Class<*> {
+    return if (isListType(field.type)) {
+        extractNestedType(field.genericType)
+    } else {
+        field.type
+    }
+}
+
+/**
+ * Creates an instance of the specified class [clazz] using its primary constructor.
+ * Constructor arguments are matched with the corresponding values from the provided [dict].
+ */
 private fun createInstance(
     clazz: Class<*>,
     fields: List<Field>,
     dict: Map<String, BObject>
 ): Any {
-    val constructor =
-        clazz.kotlin.primaryConstructor ?:  error("Class must have a primary constructor")
+    val constructor = clazz.kotlin.primaryConstructor
+        ?: throw IllegalArgumentException("Class must have a primary constructor")
+
     val args = constructor.parameters.associateWith { param ->
-        val bencodeName = fields.find { field -> field.name == param.name }.let { it?.getAnnotation(BencodeName::class.java)?.name }
-        val fieldName = bencodeName ?: param.name ?: error("Constructor parameter must have a name")
-        val value = dict[fieldName] ?: error("Missing value for parameter $fieldName")
-        unmarshal((param.type.classifier as KClass<*>).java, value)
+        val fieldAnnotation = fields.find { field -> field.name == param.name }
+            ?.getAnnotation(BencodeName::class.java)?.name
+        val fieldName = fieldAnnotation ?: param.name
+        ?: throw IllegalArgumentException("Constructor parameter must have a name")
+
+        val value = dict[fieldName]
+            ?: throw IllegalArgumentException("Missing value for parameter $fieldName")
+
+        val fieldType = (param.type.classifier as KClass<*>).java
+        if (isListType(fieldType)) return@associateWith emptyList<Any>()
+
+        unmarshal(fieldType, value)
     }
+
     val instance = constructor.callBy(args)
     return instance
-}
-
-/**
- * 查找类 [clazz] 中具有给定键 [key] 的字段。
- * 如果字段上有 @BencodeName 注解且注解的名称与键匹配，或者字段名称与键匹配，则返回该字段。
- */
-private fun findField(fields: List<Field>, key: String): Field? {
-    return fields.find {
-        val annotation = it.getAnnotation(BencodeName::class.java)
-        it.name == key || annotation?.name == key
-    }
 }

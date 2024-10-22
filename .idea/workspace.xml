@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6b12048-ccaf-4443-b7eb-dd467fcd5d53" name="Changes" comment="Update README.md" />
+    <list default="true" id="a6b12048-ccaf-4443-b7eb-dd467fcd5d53" name="Changes" comment="Add ci-test.yml">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/lanlinju/bencode/Bencode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/lanlinju/bencode/Bencode.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/lanlinju/bencode/Util.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/lanlinju/bencode/Util.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/bencode/UtilTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/bencode/UtilTest.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,85 +80,85 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.BecodeTest.executor": "Run",
-    "Gradle.BencodeTest.executor": "Run",
-    "Gradle.BencodeTest.testDecode.executor": "Run",
-    "Gradle.BencodeTest.testDecodeAddress.executor": "Run",
-    "Gradle.BencodeTest.testDecodeAndEncode.executor": "Run",
-    "Gradle.BencodeTest.testDecodeInt.executor": "Run",
-    "Gradle.BencodeTest.testDecodePerson.executor": "Run",
-    "Gradle.BencodeTest.testDecodeString.executor": "Run",
-    "Gradle.BencodeTest.testEecodePersonWithLong.executor": "Run",
-    "Gradle.BencodeTest.testEncodeAddress.executor": "Run",
-    "Gradle.BencodeTest.testEncodePerson.executor": "Run",
-    "Gradle.BencodeTest.testEncodeWithInputStream.executor": "Run",
-    "Gradle.BencodeTest.testPersonWithLong.executor": "Run",
-    "Gradle.BufferedReaderExtensionsTest.executor": "Run",
-    "Gradle.BufferedReaderExtensionsTest.testReadNCharsChinese.executor": "Run",
-    "Gradle.Build sample.executor": "Run",
-    "Gradle.Build simple-bencode.executor": "Run",
-    "Gradle.EncoderTest.executor": "Run",
-    "Gradle.EncoderTest.testBencodeEmptyBList.executor": "Run",
-    "Gradle.EncoderTest.testBencodeInvalidObject.executor": "Run",
-    "Gradle.EncoderTest.testEncodeDictNested.executor": "Run",
-    "Gradle.EncoderTest.testEncodeInt.executor": "Run",
-    "Gradle.EncoderTest.testEncodeIntWithMinus.executor": "Run",
-    "Gradle.EncoderTest.testIntToLong.executor": "Run",
-    "Gradle.MarshalTest.executor": "Run",
-    "Gradle.MarshalTest.testMarshalToBufferedWriter.executor": "Run",
-    "Gradle.MarshalTest.testMarshalToOutputStream.executor": "Run",
-    "Gradle.ParserTest.executor": "Run",
-    "Gradle.ParserTest.testDecodeEmptyDict.executor": "Run",
-    "Gradle.ParserTest.testDecodeEmptyList.executor": "Run",
-    "Gradle.ParserTest.testDecodeEmptyString.executor": "Run",
-    "Gradle.ParserTest.testDecodeEmptyStringAndInt.executor": "Run",
-    "Gradle.ParserTest.testReadNChars.executor": "Run",
-    "Gradle.ParserTest.testReadNCharsWithShorterLength.executor": "Run",
-    "Gradle.UnmarshalTest.executor": "Run",
-    "Gradle.UnmarshalTest.testUnmarshal.executor": "Run",
-    "Gradle.UnmarshalTest.testUnmarshalDict.executor": "Run",
-    "Gradle.UnmarshalTest.testUnmarshalInt.executor": "Run",
-    "Gradle.UnmarshalTest.testUnmarshalList.executor": "Run",
-    "Gradle.UnmarshalTest.testUnmarshalNestedAddress.executor": "Run",
-    "Gradle.UnmarshalTest.testUnmarshalNestedListIncludedAddrWitchList.executor": "Run",
-    "Gradle.UnmarshalTest.testUnmarshalNestedListInnerList.executor": "Run",
-    "Gradle.UnmarshalTest.testUnmarshalNestedListWithAddrInList.executor": "Run",
-    "Gradle.UnmarshalTest.testUnmarshalString.executor": "Run",
-    "Gradle.UnmarshalTest.testUnmarshalWithList.executor": "Run",
-    "Gradle.UtilTest.executor": "Run",
-    "Gradle.UtilTest.testCreateInstance.executor": "Run",
-    "Gradle.UtilTest.testExtractNestedType.executor": "Debug",
-    "Gradle.UtilTest.testExtractNestedTypeWithWildcard.executor": "Debug",
-    "Gradle.UtilTest.testIsListType.executor": "Run",
-    "Gradle.UtilTest.testParseTypeHierarchy.executor": "Debug",
-    "Gradle.UtilTest.testParseTypeHierarchyWithWildcard.executor": "Debug",
-    "Gradle.simple-bencode [test].executor": "Run",
-    "Kotlin.MainKt.executor": "Run",
-    "Kotlin.ParseTorrentFileKt.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Dev/Code/codecrafters-bittorrent-kotlin",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.4297052",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.BecodeTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.BencodeTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.BencodeTest.testDecode.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.BencodeTest.testDecodeAddress.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.BencodeTest.testDecodeAndEncode.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.BencodeTest.testDecodeInt.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.BencodeTest.testDecodePerson.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.BencodeTest.testDecodeString.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.BencodeTest.testEecodePersonWithLong.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.BencodeTest.testEncodeAddress.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.BencodeTest.testEncodePerson.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.BencodeTest.testEncodeWithInputStream.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.BencodeTest.testPersonWithLong.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.BufferedReaderExtensionsTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.BufferedReaderExtensionsTest.testReadNCharsChinese.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build sample.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build simple-bencode.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EncoderTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EncoderTest.testBencodeEmptyBList.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EncoderTest.testBencodeInvalidObject.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EncoderTest.testEncodeDictNested.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EncoderTest.testEncodeInt.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EncoderTest.testEncodeIntWithMinus.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EncoderTest.testIntToLong.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MarshalTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MarshalTest.testMarshalToBufferedWriter.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MarshalTest.testMarshalToOutputStream.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ParserTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ParserTest.testDecodeEmptyDict.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ParserTest.testDecodeEmptyList.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ParserTest.testDecodeEmptyString.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ParserTest.testDecodeEmptyStringAndInt.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ParserTest.testReadNChars.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ParserTest.testReadNCharsWithShorterLength.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UnmarshalTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UnmarshalTest.testUnmarshal.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UnmarshalTest.testUnmarshalDict.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UnmarshalTest.testUnmarshalInt.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UnmarshalTest.testUnmarshalList.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UnmarshalTest.testUnmarshalNestedAddress.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UnmarshalTest.testUnmarshalNestedListIncludedAddrWitchList.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UnmarshalTest.testUnmarshalNestedListInnerList.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UnmarshalTest.testUnmarshalNestedListWithAddrInList.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UnmarshalTest.testUnmarshalString.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UnmarshalTest.testUnmarshalWithList.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UtilTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UtilTest.testCreateInstance.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UtilTest.testExtractNestedType.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.UtilTest.testExtractNestedTypeWithWildcard.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.UtilTest.testIsListType.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UtilTest.testParseTypeHierarchy.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.UtilTest.testParseTypeHierarchyWithWildcard.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.simple-bencode [test].executor&quot;: &quot;Run&quot;,
+    &quot;Kotlin.MainKt.executor&quot;: &quot;Run&quot;,
+    &quot;Kotlin.ParseTorrentFileKt.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Dev/Code/codecrafters-bittorrent-kotlin&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.4297052&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "kotlin-gradle-user-dirs": [
-      "D:\\Program Files\\Config\\gradle\\.gradle"
+  &quot;keyToStringList&quot;: {
+    &quot;kotlin-gradle-user-dirs&quot;: [
+      &quot;D:\\Program Files\\Config\\gradle\\.gradle&quot;
     ]
   }
-}]]></component>
-  <component name="RunManager" selected="Kotlin.ParseTorrentFileKt">
+}</component>
+  <component name="RunManager" selected="Kotlin.MainKt">
     <configuration name="UnmarshalTest.testUnmarshalInt" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -240,8 +245,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Kotlin.ParseTorrentFileKt" />
         <item itemvalue="Kotlin.MainKt" />
+        <item itemvalue="Kotlin.ParseTorrentFileKt" />
         <item itemvalue="Gradle.UtilTest.testIsListType" />
         <item itemvalue="Gradle.UnmarshalTest.testUnmarshalInt" />
         <item itemvalue="Gradle.simple-bencode [test]" />
@@ -269,6 +274,9 @@
       <workItem from="1719578837658" duration="11486000" />
       <workItem from="1719654950086" duration="3811000" />
       <workItem from="1729517116386" duration="5274000" />
+      <workItem from="1729522579928" duration="3140000" />
+      <workItem from="1729581073084" duration="50000" />
+      <workItem from="1729581272597" duration="188000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <option name="closed" value="true" />
@@ -502,7 +510,23 @@
       <option name="project" value="LOCAL" />
       <updated>1729522361534</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Update README">
+      <option name="closed" value="true" />
+      <created>1729522893206</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1729522893206</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Add ci-test.yml">
+      <option name="closed" value="true" />
+      <created>1729580603588</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1729580603588</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -532,7 +556,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="为Paser增加注释信息" />
     <MESSAGE value="增加Paser的测试用例" />
     <MESSAGE value="为Parser解析器增加注释信息" />
     <MESSAGE value="实现Encoder编码器功能&#10;&#10;将BOject对象编码成字符串，写入BufferedWriter" />
@@ -549,7 +572,6 @@
     <MESSAGE value="update version 1.0.1" />
     <MESSAGE value="update README.md" />
     <MESSAGE value="Add support for Long type" />
-    <MESSAGE value="Update README" />
     <MESSAGE value="ignore .idea" />
     <MESSAGE value="Optimize code implementation" />
     <MESSAGE value="Rename package name" />
@@ -557,8 +579,11 @@
     <MESSAGE value="Release version 1.0.4" />
     <MESSAGE value="Add some usage example" />
     <MESSAGE value="Update README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update README.md" />
+    <MESSAGE value="Update README" />
+    <MESSAGE value="Add ci-test.yml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add ci-test.yml" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

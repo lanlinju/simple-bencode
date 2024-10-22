@@ -1,6 +1,5 @@
 package bencode
 
-import com.lanlinju.bencode.createInstance
 import com.lanlinju.bencode.extractNestedType
 import com.lanlinju.bencode.isListType
 import org.junit.jupiter.api.Assertions.*
@@ -12,13 +11,6 @@ import java.lang.reflect.WildcardType
 class UtilTest {
 
     data class TestClass(val value: String = "test")
-
-    // 测试 createInstance 函数
-    @Test
-    fun testCreateInstance() {
-        val instance = TestClass::class.java.createInstance()
-        assertEquals("test", instance.value)
-    }
 
     // 测试 extractNestedType 函数
     @Test
