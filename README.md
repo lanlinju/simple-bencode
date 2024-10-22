@@ -86,8 +86,8 @@ dependencies {
 
 ### Parse TorrentFile example
 ```kotlin
-import com.lanli.bencode.Bencode
-import com.lanli.bencode.BencodeName
+import com.lanlinju.bencode.Bencode
+import com.lanlinju.bencode.BencodeName
 import java.io.File
 import java.security.MessageDigest
 
