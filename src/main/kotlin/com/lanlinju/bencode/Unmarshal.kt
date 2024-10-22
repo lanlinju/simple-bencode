@@ -96,19 +96,15 @@ private fun createInstance(
     fields: List<Field>,
     dict: Map<String, BObject>
 ): Any {
-    val constructor = clazz.kotlin.primaryConstructor
-        ?: throw IllegalArgumentException("Class must have a primary constructor")
+    val constructor = clazz.kotlin.primaryConstructor ?: error("Class must have a primary constructor")
 
-    val args = constructor.parameters.associateWith { param ->
-        val fieldAnnotation = fields.find { field -> field.name == param.name }
-            ?.getAnnotation(BencodeName::class.java)?.name
-        val fieldName = fieldAnnotation ?: param.name
-        ?: throw IllegalArgumentException("Constructor parameter must have a name")
+    val args = constructor.parameters.associateWith { parameter ->
+        val annotation = fields.find { field -> field.name == parameter.name }?.getAnnotation(BencodeName::class.java)
+        val fieldName = annotation?.name ?: parameter.name ?: error("Constructor parameter must have a name")
 
-        val value = dict[fieldName]
-            ?: throw IllegalArgumentException("Missing value for parameter $fieldName")
+        val value = dict[fieldName] ?: error("Missing value for parameter $fieldName")
 
-        val fieldType = (param.type.classifier as KClass<*>).java
+        val fieldType = (parameter.type.classifier as KClass<*>).java
         if (isListType(fieldType)) return@associateWith emptyList<Any>()
 
         unmarshal(fieldType, value)
